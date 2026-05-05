@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +12,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
-  title: "West/PPL - An Elevated Community",
+  title: "West/PPL - Where Culture Lives",
   description:
-    "An elevated community for sizzling souls to build lasting friendships, curate epic experiences, and share events in Miami, LA, and NYC.",
+    "An elevated community for sizzling souls. Exclusive events, curated experiences, and deep connections across Miami, LA, and NYC.",
   keywords: [
     "west ppl",
     "community",
@@ -25,11 +31,13 @@ export const metadata: Metadata = {
     "events",
     "exclusive",
     "members club",
+    "social club",
+    "culture",
   ],
   openGraph: {
-    title: "West/PPL - An Elevated Community",
+    title: "West/PPL - Where Culture Lives",
     description:
-      "An elevated community for sizzling souls to build lasting friendships and curate epic experiences.",
+      "An elevated community for sizzling souls. Exclusive events, curated experiences, and deep connections.",
     type: "website",
   },
 };
@@ -42,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

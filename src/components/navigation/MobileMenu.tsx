@@ -3,30 +3,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { X, Search } from "lucide-react";
+import { X, ArrowRight, MapPin } from "lucide-react";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Logo } from "./Logo";
-import { cn } from "@/lib/utils";
+import { CHAPTERS } from "@/types";
 
 const menuItems = [
-  { label: "EVENTS", href: "/events" },
-  { label: "CULTURE", href: "/culture" },
-  { label: "PEOPLE", href: "/people" },
-  { label: "WEST NIGHTS", href: "/west-nights" },
-  { label: "CHAPTERS", href: "/chapters", hasSubmenu: true },
+  { label: "Events", href: "/events" },
+  { label: "Culture", href: "/culture" },
+  { label: "About", href: "/about" },
+  { label: "Apply", href: "/apply", highlight: true },
 ];
 
-const chapterItems = [
-  { label: "Miami", href: "/miami" },
-  { label: "Los Angeles", href: "/la" },
-  { label: "New York", href: "/nyc" },
-];
-
-const footerLinks = [
-  { label: "ABOUT", href: "/about" },
-  { label: "APPLY", href: "/apply" },
-  { label: "SPONSORS", href: "/sponsors" },
-  { label: "TERMS", href: "/terms" },
-];
+const chapters = Object.values(CHAPTERS);
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -34,111 +23,109 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  const [showChapters, setShowChapters] = useState(false);
-
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 bg-background"
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-            <Logo />
-            <div className="flex items-center gap-4">
-              <button className="p-2 hover:opacity-70 transition-opacity">
-                <Search className="w-6 h-6" />
-              </button>
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm"
+            onClick={onClose}
+          />
+
+          {/* Menu Panel */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-md bg-background shadow-2xl"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-border">
+              <Logo size="sm" />
               <button
                 onClick={onClose}
-                className="p-2 hover:opacity-70 transition-opacity"
+                className="p-2 -mr-2 hover:bg-foreground/5 rounded-full transition-colors"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
-          </div>
 
-          {/* Menu Items */}
-          <nav className="px-6 py-8">
-            <ul className="space-y-6">
-              {menuItems.map((item, index) => (
-                <motion.li
-                  key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  {item.hasSubmenu ? (
-                    <div>
-                      <button
-                        onClick={() => setShowChapters(!showChapters)}
-                        className="font-display text-4xl md:text-5xl tracking-tight hover:opacity-70 transition-opacity flex items-center gap-2"
-                      >
-                        {item.label}
-                        <motion.span
-                          animate={{ rotate: showChapters ? 180 : 0 }}
-                          className="text-2xl"
-                        >
-                          ↓
-                        </motion.span>
-                      </button>
-                      <AnimatePresence>
-                        {showChapters && (
-                          <motion.ul
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="ml-4 mt-4 space-y-3 overflow-hidden"
-                          >
-                            {chapterItems.map((chapter) => (
-                              <li key={chapter.label}>
-                                <Link
-                                  href={chapter.href}
-                                  onClick={onClose}
-                                  className="font-display text-2xl text-muted hover:text-foreground transition-colors"
-                                >
-                                  → {chapter.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </motion.ul>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
+            {/* Main Navigation */}
+            <nav className="px-6 py-8">
+              <ul className="space-y-1">
+                {menuItems.map((item, index) => (
+                  <motion.li
+                    key={item.label}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
+                  >
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="font-display text-4xl md:text-5xl tracking-tight hover:opacity-70 transition-opacity"
+                      className={`flex items-center justify-between py-4 text-2xl font-editorial transition-colors ${
+                        item.highlight
+                          ? "text-accent hover:text-accent-dark"
+                          : "text-foreground hover:text-muted"
+                      }`}
                     >
                       {item.label}
+                      <ArrowRight className="w-5 h-5 opacity-30" />
                     </Link>
-                  )}
-                </motion.li>
-              ))}
-            </ul>
-          </nav>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
 
-          {/* Footer Links */}
-          <div className="absolute bottom-0 left-0 right-0 px-6 py-6 border-t border-border">
-            <div className="grid grid-cols-2 gap-4">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={onClose}
-                  className="text-sm font-medium text-muted hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* Chapters */}
+            <div className="px-6 py-6 border-t border-border">
+              <p className="font-caps text-muted mb-4">Chapters</p>
+              <div className="grid grid-cols-3 gap-3">
+                {chapters.map((chapter) => (
+                  <Link
+                    key={chapter.id}
+                    href={`/${chapter.id}`}
+                    onClick={onClose}
+                    className="group p-4 bg-cream rounded-lg hover:bg-sand transition-colors"
+                  >
+                    <MapPin
+                      className="w-4 h-4 mb-2 transition-colors"
+                      style={{ color: chapter.color }}
+                    />
+                    <p className="text-sm font-medium">{chapter.name}</p>
+                    <p className="text-xs text-muted">{chapter.fullName}</p>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Footer */}
+            <div className="absolute bottom-0 left-0 right-0 px-6 py-6 border-t border-border bg-cream">
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/login"
+                  onClick={onClose}
+                  className="text-sm font-medium hover:text-muted transition-colors"
+                >
+                  Member Login
+                </Link>
+                <a
+                  href="https://instagram.com/westppl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-sand rounded-full transition-colors"
+                >
+                  <InstagramIcon className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

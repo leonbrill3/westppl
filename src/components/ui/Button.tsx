@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "link";
   size?: "sm" | "md" | "lg";
 }
 
@@ -14,21 +14,27 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+          "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden group",
           {
-            // Variants
-            "bg-foreground text-background hover:opacity-90 focus:ring-foreground":
+            // Primary - solid dark
+            "bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-foreground":
               variant === "primary",
-            "bg-accent text-background hover:bg-accent-dark focus:ring-accent":
+            // Secondary - accent color
+            "bg-accent text-foreground hover:bg-accent-dark focus-visible:ring-accent":
               variant === "secondary",
-            "border-2 border-foreground text-foreground hover:bg-foreground hover:text-background focus:ring-foreground":
+            // Outline - elegant border
+            "border border-foreground/20 text-foreground hover:border-foreground hover:bg-foreground hover:text-background focus-visible:ring-foreground":
               variant === "outline",
-            "text-foreground hover:bg-foreground/5 focus:ring-foreground":
+            // Ghost - minimal
+            "text-foreground hover:bg-foreground/5 focus-visible:ring-foreground":
               variant === "ghost",
+            // Link - underline style
+            "text-foreground underline-offset-4 hover:underline focus-visible:ring-foreground p-0":
+              variant === "link",
             // Sizes
-            "text-sm px-4 py-2 rounded": size === "sm",
-            "text-base px-6 py-3 rounded-md": size === "md",
-            "text-lg px-8 py-4 rounded-lg": size === "lg",
+            "text-xs px-4 py-2": size === "sm",
+            "text-sm px-6 py-3": size === "md",
+            "text-sm px-8 py-4": size === "lg",
           },
           className
         )}
