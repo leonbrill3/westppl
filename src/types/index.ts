@@ -70,8 +70,7 @@ export type EventCategory =
   | "art"
   | "music"
   | "fashion"
-  | "panel"
-  | "trip"
+  | "networking"
   | "other";
 
 export interface RSVP {
