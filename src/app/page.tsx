@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Header } from "@/components/navigation/Header";
+import { WestPplLogo, WestPplLogoSmall } from "@/components/icons/WestPplLogo";
 
 // Communities
 const communities = [
@@ -81,15 +82,36 @@ const experiences = [
   },
 ];
 
-// Flamingo Icon
+// Flamingo Icon (kept for small accent uses)
 function FlamingoIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 24 32"
+      viewBox="0 0 20 45"
       className={className}
-      fill="currentColor"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M12 0C10.5 0 9.2 1.2 9 2.7C8.8 4 9.5 5.2 10.5 5.8C10.2 6.5 9.8 7.5 9.2 8.5C8.2 10.2 6.8 12 5.5 14C4 16.2 3 18.5 3 21C3 24 4.5 26.5 7 28C7 29.5 7.5 31 8 32H10C9.5 30.5 9 29 9 28C10 28.5 11 28.8 12 28.8C13 28.8 14 28.5 15 28C15 29 14.5 30.5 14 32H16C16.5 31 17 29.5 17 28C19.5 26.5 21 24 21 21C21 18.5 20 16.2 18.5 14C17.2 12 15.8 10.2 14.8 8.5C14.2 7.5 13.8 6.5 13.5 5.8C14.5 5.2 15.2 4 15 2.7C14.8 1.2 13.5 0 12 0ZM12 3C12.5 3 13 3.4 13 4C13 4.6 12.5 5 12 5C11.5 5 11 4.6 11 4C11 3.4 11.5 3 12 3Z" />
+      {/* Flamingo body - teardrop shape */}
+      <path
+        d="M10 0 C4 8, 4 16, 10 24 C16 16, 16 8, 10 0 Z"
+        fill="currentColor"
+      />
+      {/* Flamingo curved neck */}
+      <path
+        d="M10 24 Q8 32, 6 38 Q4 44, 2 48"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        fill="none"
+      />
+      {/* Flamingo foot curl */}
+      <path
+        d="M2 48 Q0 52, 4 54"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+      />
     </svg>
   );
 }
@@ -121,10 +143,8 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             {/* Logo */}
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <span className="font-headline text-6xl lg:text-8xl tracking-wide">west</span>
-              <FlamingoIcon className="w-12 h-16 lg:w-16 lg:h-20 text-pink" />
-              <span className="font-headline text-6xl lg:text-8xl tracking-wide">ppl</span>
+            <div className="flex items-center justify-center mb-8">
+              <WestPplLogo className="h-16 lg:h-24 w-auto" />
             </div>
 
             {/* Tagline */}
@@ -357,10 +377,8 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-12 mb-16">
             {/* Logo & Tagline */}
             <div className="lg:col-span-4">
-              <Link href="/" className="flex items-center gap-2 mb-4">
-                <span className="font-headline text-2xl">west</span>
-                <FlamingoIcon className="w-5 h-6 text-pink" />
-                <span className="font-headline text-2xl">ppl</span>
+              <Link href="/" className="inline-block mb-4">
+                <WestPplLogoSmall className="h-10 w-auto text-white" />
               </Link>
               <p className="font-body text-sm text-white/60 mb-4">
                 An elevated community for sizzling souls.
