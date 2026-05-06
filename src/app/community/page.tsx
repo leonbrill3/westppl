@@ -1,7 +1,6 @@
 "use client";
 
 import { Header } from "@/components/navigation/Header";
-import { Footer } from "@/components/navigation/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -237,7 +236,17 @@ export default function CommunityPage() {
         </div>
       </section>
 
-<Footer />
+      {/* Footer */}
+      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+        <div className="max-w-[1600px] mx-auto text-center">
+          <Link href="/" className="font-headline text-2xl">
+            WEST PPL
+          </Link>
+          <p className="font-caps text-subtle mt-4">
+            &copy; 2025 West PPL. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }

@@ -8,13 +8,13 @@ export function WestPplLogo({
   variant?: "white" | "black";
 }) {
   return (
-    <div className={`relative ${className || ""}`}>
+    <div className={className}>
       <Image
         src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
         alt="West PPL"
-        fill
-        className="object-contain"
-        sizes="280px"
+        width={280}
+        height={80}
+        className="h-full w-auto"
         priority
       />
     </div>
@@ -29,13 +29,13 @@ export function WestPplLogoSmall({
   variant?: "white" | "black";
 }) {
   return (
-    <div className={`relative ${className || ""}`}>
+    <div className={className}>
       <Image
         src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
         alt="West PPL"
-        fill
-        className="object-contain"
-        sizes="180px"
+        width={180}
+        height={50}
+        className="h-full w-auto"
       />
     </div>
   );
