@@ -12,8 +12,8 @@ export function WestPplLogo({
       <Image
         src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
         alt="West PPL"
-        width={280}
-        height={80}
+        width={143}
+        height={98}
         className="h-full w-auto"
         priority
       />
@@ -33,8 +33,8 @@ export function WestPplLogoSmall({
       <Image
         src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
         alt="West PPL"
-        width={180}
-        height={50}
+        width={58}
+        height={40}
         className="h-full w-auto"
       />
     </div>
