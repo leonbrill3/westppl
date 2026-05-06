@@ -8,14 +8,16 @@ export function WestPplLogo({
   variant?: "white" | "black";
 }) {
   return (
-    <Image
-      src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
-      alt="West PPL"
-      width={280}
-      height={80}
-      className={className}
-      priority
-    />
+    <div className={className}>
+      <Image
+        src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
+        alt="West PPL"
+        width={280}
+        height={80}
+        className="h-full w-auto"
+        priority
+      />
+    </div>
   );
 }
 
@@ -27,12 +29,14 @@ export function WestPplLogoSmall({
   variant?: "white" | "black";
 }) {
   return (
-    <Image
-      src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
-      alt="West PPL"
-      width={180}
-      height={50}
-      className={className}
-    />
+    <div className={className}>
+      <Image
+        src={variant === "white" ? "/logo-white.png" : "/logo-black.png"}
+        alt="West PPL"
+        width={180}
+        height={50}
+        className="h-full w-auto"
+      />
+    </div>
   );
 }
