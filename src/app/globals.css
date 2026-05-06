@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* West Ave Group Palette - Black & White with Warm Accents */
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --black: #0a0a0a;
+  /* West PPL Palette - Dark theme with pink accent */
+  --background: #000000;
+  --foreground: #ffffff;
+  --black: #000000;
   --white: #ffffff;
 
-  /* Warm neutral accents */
-  --taupe: #c4b5a3;
-  --tan: #d4c5b3;
-  --warm-gray: #9a918a;
+  /* Brand colors */
+  --pink: #E8A0A0;
+  --dark-gray: #1a1a1a;
+  --mid-gray: #333333;
   --charcoal: #2a2a2a;
-  --off-white: #f5f5f3;
+  --off-black: #0d0d0d;
 
   /* Functional */
-  --muted: #666666;
-  --subtle: #999999;
-  --border: #e5e5e5;
-  --border-dark: #333333;
+  --muted: #888888;
+  --subtle: #666666;
+  --border: #333333;
+  --border-light: #444444;
 }
 
 @theme inline {
@@ -26,17 +26,17 @@
   --color-foreground: var(--foreground);
   --color-black: var(--black);
   --color-white: var(--white);
-  --color-taupe: var(--taupe);
-  --color-tan: var(--tan);
-  --color-warm-gray: var(--warm-gray);
+  --color-pink: var(--pink);
+  --color-dark-gray: var(--dark-gray);
+  --color-mid-gray: var(--mid-gray);
   --color-charcoal: var(--charcoal);
-  --color-off-white: var(--off-white);
+  --color-off-black: var(--off-black);
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
   --color-border: var(--border);
-  --color-border-dark: var(--border-dark);
+  --color-border-light: var(--border-light);
   --font-bebas: var(--font-bebas);
-  --font-serif: var(--font-serif);
+  --font-typewriter: var(--font-typewriter);
 }
 
 * {
@@ -54,13 +54,12 @@ body {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
+  font-family: var(--font-typewriter), 'Courier New', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 15px;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
 }
 
 /* Bebas Neue for headlines - bold, condensed, impactful */
@@ -72,21 +71,19 @@ body {
   text-transform: uppercase;
 }
 
-/* Serif for body copy */
+/* Typewriter for body copy */
 .font-body {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 300;
-  letter-spacing: 0.01em;
-  line-height: 1.7;
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  letter-spacing: 0.02em;
+  line-height: 1.8;
 }
 
-/* All caps utility - typewriter style */
+/* Typewriter caps utility */
 .font-caps {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-weight: 400;
 }
 
 /* Smooth scrolling */
@@ -108,16 +105,16 @@ html {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--white);
+  background: var(--black);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--charcoal);
+  background: var(--pink);
 }
 
 /* Selection */
 ::selection {
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--pink);
+  color: var(--black);
 }
 
 /* Links */
@@ -252,19 +249,19 @@ img {
   align-items: center;
   justify-content: center;
   padding: 0.875rem 2rem;
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  background: var(--pink);
+  color: var(--black);
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  border: 1px solid var(--black);
+  border: 1px solid var(--pink);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 .btn-primary:hover {
-  background: var(--white);
-  color: var(--black);
+  background: transparent;
+  color: var(--pink);
 }
 
 .btn-outline {
@@ -273,18 +270,38 @@ img {
   justify-content: center;
   padding: 0.875rem 2rem;
   background: transparent;
-  color: var(--black);
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  color: var(--white);
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  border: 1px solid var(--black);
+  border: 1px solid var(--white);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 .btn-outline:hover {
-  background: var(--black);
-  color: var(--white);
+  background: var(--white);
+  color: var(--black);
+}
+
+.btn-pink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--pink);
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--pink);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-pink:hover {
+  background: var(--pink);
+  color: var(--black);
 }
 
 .btn-white {
@@ -294,9 +311,9 @@ img {
   padding: 0.875rem 2rem;
   background: var(--white);
   color: var(--black);
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-typewriter), 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   border: 1px solid var(--white);
   cursor: pointer;

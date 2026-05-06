@@ -71,7 +71,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
   const experience = experiences[id] || defaultExperience;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Back Link */}
@@ -79,7 +79,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/experiences"
-            className="inline-flex items-center gap-2 font-caps text-muted hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 font-caps text-muted hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Experiences
@@ -143,7 +143,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
                   <div className="grid sm:grid-cols-2 gap-4">
                     {experience.highlights.map((highlight) => (
                       <div key={highlight} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 mt-0.5 text-black" />
+                        <Check className="w-5 h-5 mt-0.5 text-white" />
                         <span className="font-body">{highlight}</span>
                       </div>
                     ))}
@@ -180,7 +180,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="sticky top-24 bg-off-white p-8"
+                className="sticky top-24 bg-dark-gray p-8"
               >
                 <span className="font-caps text-muted">Price per person</span>
                 <p className="font-headline text-4xl mt-2">{experience.price}</p>

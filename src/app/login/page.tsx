@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
@@ -41,7 +41,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-off-white p-8 lg:p-12 max-w-md mx-auto lg:mx-0 w-full"
+              className="bg-dark-gray p-8 lg:p-12 max-w-md mx-auto lg:mx-0 w-full"
             >
               <div className="flex items-center gap-1 mb-8">
                 <span className="font-headline text-3xl">WEST</span>
@@ -55,7 +55,7 @@ export default function LoginPage() {
                   </label>
                   <input
                     type="email"
-                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -66,7 +66,7 @@ export default function LoginPage() {
                   </label>
                   <input
                     type="password"
-                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                     placeholder="••••••••"
                   />
                 </div>
@@ -76,7 +76,7 @@ export default function LoginPage() {
                     <input type="checkbox" className="w-4 h-4 accent-black" />
                     <span className="font-caps text-xs text-muted">Remember me</span>
                   </label>
-                  <Link href="/forgot-password" className="font-caps text-xs text-muted hover:text-black transition-colors">
+                  <Link href="/forgot-password" className="font-caps text-xs text-muted hover:text-white transition-colors">
                     Forgot Password?
                   </Link>
                 </div>
@@ -89,7 +89,7 @@ export default function LoginPage() {
               <div className="mt-8 pt-8 border-t border-border">
                 <p className="font-caps text-sm text-muted text-center">
                   Need assistance?{" "}
-                  <Link href="/contact" className="text-black hover:underline">
+                  <Link href="/contact" className="text-white hover:underline">
                     Contact Support
                   </Link>
                 </p>

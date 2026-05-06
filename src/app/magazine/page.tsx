@@ -73,7 +73,7 @@ const categories = ["All", "Travel", "Fashion", "Wellness", "Dining", "Culture",
 
 export default function MagazinePage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -145,7 +145,7 @@ export default function MagazinePage() {
               <button
                 key={category}
                 className={`font-caps whitespace-nowrap ${
-                  index === 0 ? "text-black" : "text-muted hover:text-black"
+                  index === 0 ? "text-white" : "text-muted hover:text-white"
                 } transition-colors`}
               >
                 {category}

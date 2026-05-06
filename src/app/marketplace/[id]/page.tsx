@@ -147,7 +147,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
   const service = services[id] || defaultService;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Back Link */}
@@ -155,7 +155,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/marketplace"
-            className="inline-flex items-center gap-2 font-caps text-muted hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 font-caps text-muted hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Marketplace
@@ -205,7 +205,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       </section>
 
       {/* Features & Includes */}
-      <section className="bg-off-white py-24 px-6 lg:px-12">
+      <section className="bg-dark-gray py-24 px-6 lg:px-12">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             <motion.div
@@ -217,7 +217,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
               <ul className="space-y-4">
                 {service.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 mt-0.5 text-black" />
+                    <Check className="w-5 h-5 mt-0.5 text-white" />
                     <span className="font-body">{feature}</span>
                   </li>
                 ))}
@@ -233,7 +233,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
               <ul className="space-y-4">
                 {service.includes.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 mt-0.5 text-black" />
+                    <Check className="w-5 h-5 mt-0.5 text-white" />
                     <span className="font-body">{item}</span>
                   </li>
                 ))}

@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
@@ -16,9 +16,9 @@ export default function ForgotPasswordPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-off-white p-8 lg:p-12"
+            className="bg-dark-gray p-8 lg:p-12"
           >
-            <Link href="/login" className="inline-flex items-center gap-2 font-caps text-muted hover:text-black transition-colors mb-8">
+            <Link href="/login" className="inline-flex items-center gap-2 font-caps text-muted hover:text-white transition-colors mb-8">
               <ArrowLeft className="w-4 h-4" />
               Back to Login
             </Link>
@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
                 </label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                  className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                   placeholder="your@email.com"
                 />
               </div>

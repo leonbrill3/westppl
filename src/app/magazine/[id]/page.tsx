@@ -74,7 +74,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
   const article = articles[id] || defaultArticle;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Back Link */}
@@ -82,7 +82,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/magazine"
-            className="inline-flex items-center gap-2 font-caps text-muted hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 font-caps text-muted hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Magazine
@@ -132,11 +132,11 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
 
           {/* Actions */}
           <div className="flex justify-center gap-4 mb-12 border-b border-border pb-8">
-            <button className="flex items-center gap-2 font-caps text-muted hover:text-black transition-colors">
+            <button className="flex items-center gap-2 font-caps text-muted hover:text-white transition-colors">
               <Share2 className="w-4 h-4" />
               Share
             </button>
-            <button className="flex items-center gap-2 font-caps text-muted hover:text-black transition-colors">
+            <button className="flex items-center gap-2 font-caps text-muted hover:text-white transition-colors">
               <Bookmark className="w-4 h-4" />
               Save
             </button>
@@ -162,7 +162,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
           {/* Author */}
           <div className="border-t border-border mt-12 pt-8">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-off-white flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-dark-gray flex items-center justify-center">
                 <span className="font-headline text-xl">
                   {article.author.split(" ").map(n => n[0]).join("")}
                 </span>

@@ -78,7 +78,7 @@ const categories = ["All", "Culinary", "Art & Culture", "Adventure", "Fashion", 
 
 export default function ExperiencesPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -148,7 +148,7 @@ export default function ExperiencesPage() {
               <button
                 key={category}
                 className={`font-caps whitespace-nowrap ${
-                  index === 0 ? "text-black" : "text-muted hover:text-black"
+                  index === 0 ? "text-white" : "text-muted hover:text-white"
                 } transition-colors`}
               >
                 {category}
@@ -178,7 +178,7 @@ export default function ExperiencesPage() {
                       className="object-cover grayscale-hover"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="font-caps text-xs bg-white px-3 py-1">
+                      <span className="font-caps text-xs bg-black text-white px-3 py-1">
                         {experience.category}
                       </span>
                     </div>

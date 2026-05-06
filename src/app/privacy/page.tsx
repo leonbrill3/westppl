@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
@@ -30,27 +30,27 @@ export default function PrivacyPage() {
             className="mt-12 space-y-8 font-body text-muted"
           >
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">Information We Collect</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">Information We Collect</h2>
               <p>We collect information you provide directly to us, including name, email, and other contact information when you apply for membership, use our services, or communicate with us.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">How We Use Your Information</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">How We Use Your Information</h2>
               <p>We use the information we collect to provide, maintain, and improve our services, process transactions, send communications, and personalize your experience.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">Information Sharing</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">Information Sharing</h2>
               <p>We do not sell your personal information. We may share information with service providers who assist us in operating our platform, and as required by law.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">Your Rights</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">Your Rights</h2>
               <p>You have the right to access, correct, or delete your personal information. Contact us at privacy@westavegroup.com for any privacy-related requests.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">Contact</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">Contact</h2>
               <p>For questions about this Privacy Policy, please contact us at privacy@westavegroup.com.</p>
             </section>
           </motion.div>

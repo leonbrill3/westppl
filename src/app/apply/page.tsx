@@ -16,7 +16,7 @@ const benefits = [
 
 export default function ApplyPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -53,12 +53,12 @@ export default function ApplyPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="lg:col-span-1"
             >
-              <div className="sticky top-24 bg-off-white p-8">
+              <div className="sticky top-24 bg-dark-gray p-8">
                 <h2 className="font-headline text-2xl mb-6">Member Benefits</h2>
                 <ul className="space-y-4">
                   {benefits.map((benefit) => (
                     <li key={benefit} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 mt-0.5 text-black" />
+                      <Check className="w-5 h-5 mt-0.5 text-white" />
                       <span className="font-body text-sm">{benefit}</span>
                     </li>
                   ))}
@@ -91,7 +91,7 @@ export default function ApplyPage() {
                       <input
                         type="text"
                         required
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
                     <div>
@@ -101,7 +101,7 @@ export default function ApplyPage() {
                       <input
                         type="text"
                         required
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
                   </div>
@@ -114,7 +114,7 @@ export default function ApplyPage() {
                       <input
                         type="email"
                         required
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
                     <div>
@@ -123,7 +123,7 @@ export default function ApplyPage() {
                       </label>
                       <input
                         type="tel"
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       required
-                      className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                      className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                     />
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function ApplyPage() {
                       </label>
                       <select
                         required
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       >
                         <option value="">Select industry</option>
                         <option>Finance & Investment</option>
@@ -171,7 +171,7 @@ export default function ApplyPage() {
                       </label>
                       <input
                         type="text"
-                        className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                        className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
                   </div>
@@ -182,7 +182,7 @@ export default function ApplyPage() {
                     </label>
                     <input
                       type="text"
-                      className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                      className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                     />
                   </div>
                 </div>
@@ -197,7 +197,7 @@ export default function ApplyPage() {
                     <textarea
                       required
                       rows={4}
-                      className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors resize-none"
+                      className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors resize-none"
                       placeholder="Tell us about your interests..."
                     />
                   </div>

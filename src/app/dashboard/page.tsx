@@ -16,7 +16,7 @@ const menuItems = [
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
@@ -44,7 +44,7 @@ export default function DashboardPage() {
                   href={item.href}
                   className="flex items-center gap-4 p-6 border border-border hover:border-black transition-colors group"
                 >
-                  <div className="w-12 h-12 bg-off-white flex items-center justify-center group-hover:bg-black transition-colors">
+                  <div className="w-12 h-12 bg-dark-gray flex items-center justify-center group-hover:bg-black transition-colors">
                     <item.icon className="w-6 h-6 group-hover:text-white transition-colors" />
                   </div>
                   <span className="font-headline text-xl">{item.label}</span>
@@ -53,7 +53,7 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="mt-16 p-8 bg-off-white">
+          <div className="mt-16 p-8 bg-dark-gray">
             <h2 className="font-headline text-2xl">Need Assistance?</h2>
             <p className="font-body text-muted mt-4">
               Your dedicated concierge is available 24/7 to help with any requests.

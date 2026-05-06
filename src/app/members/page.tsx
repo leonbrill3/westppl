@@ -78,7 +78,7 @@ const benefits = [
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -167,7 +167,7 @@ export default function MembersPage() {
       </section>
 
       {/* Pricing */}
-      <section className="bg-off-white py-24 px-6 lg:px-12">
+      <section className="bg-dark-gray py-24 px-6 lg:px-12">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Tiers</span>
@@ -186,7 +186,7 @@ export default function MembersPage() {
                 className={`p-8 ${
                   tier.featured
                     ? "bg-black text-white"
-                    : "bg-white border border-border"
+                    : "bg-black text-white border border-border"
                 }`}
               >
                 {tier.featured && (
@@ -208,7 +208,7 @@ export default function MembersPage() {
                 <ul className="mt-8 space-y-3">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
-                      <Check className={`w-5 h-5 mt-0.5 ${tier.featured ? "text-white" : "text-black"}`} />
+                      <Check className={`w-5 h-5 mt-0.5 ${tier.featured ? "text-white" : "text-white"}`} />
                       <span className="font-body text-sm">{feature}</span>
                     </li>
                   ))}

@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function PartnershipsPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">

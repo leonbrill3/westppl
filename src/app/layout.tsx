@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Source_Serif_4 } from "next/font/google";
+import { Bebas_Neue, Special_Elite } from "next/font/google";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -8,34 +8,33 @@ const bebasNeue = Bebas_Neue({
   weight: "400",
 });
 
-const sourceSerif = Source_Serif_4({
-  variable: "--font-serif",
+const specialElite = Special_Elite({
+  variable: "--font-typewriter",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-  title: "WEST - The Members Platform by West Ave Group",
+  title: "west | ppl - Elevated Community for Sizzling Souls",
   description:
-    "Exclusive access. Curated experiences. Elevated living. The members platform by West Ave Group.",
+    "West Ppl is an elevated community for sizzling souls to build lasting friendships, curate epic experiences, and share fun events in Miami, LA, and NYC.",
   keywords: [
-    "west ave group",
-    "west mag",
-    "members club",
-    "luxury experiences",
-    "concierge",
+    "west ppl",
+    "elevated community",
     "miami",
     "los angeles",
     "new york",
-    "exclusive events",
-    "travel",
-    "fashion",
-    "wellness",
+    "west ave miami",
+    "west hollywood",
+    "west village",
+    "curated experiences",
+    "friendships",
+    "events",
   ],
   openGraph: {
-    title: "WEST - The Members Platform",
+    title: "west | ppl",
     description:
-      "Exclusive access. Curated experiences. Elevated living.",
+      "An elevated community for sizzling souls to build lasting friendships and curate epic experiences.",
     type: "website",
   },
 };
@@ -48,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebasNeue.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={`${bebasNeue.variable} ${specialElite.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

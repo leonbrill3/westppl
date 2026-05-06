@@ -31,7 +31,7 @@ const locations = [
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -93,7 +93,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-off-white p-8 lg:p-12"
+              className="bg-dark-gray p-8 lg:p-12"
             >
               <h2 className="font-headline text-2xl mb-8">Send a Message</h2>
               <form className="space-y-6">
@@ -104,7 +104,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
-                      className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                      className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       placeholder="John"
                     />
                   </div>
@@ -114,7 +114,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
-                      className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                      className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                       placeholder="Doe"
                     />
                   </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="email"
-                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -135,7 +135,7 @@ export default function ContactPage() {
                   <label className="font-caps text-sm text-muted block mb-2">
                     Subject
                   </label>
-                  <select className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors">
+                  <select className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors">
                     <option>Membership Inquiry</option>
                     <option>Concierge Services</option>
                     <option>Experience Booking</option>
@@ -151,7 +151,7 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={5}
-                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors resize-none"
                     placeholder="Tell us how we can help..."
                   />
                 </div>
@@ -184,7 +184,7 @@ export default function ContactPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-12 h-12 mx-auto bg-white/10 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 mx-auto bg-black text-white/10 flex items-center justify-center mb-4">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <h3 className="font-headline text-2xl">{location.city}</h3>

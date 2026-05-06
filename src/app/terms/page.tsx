@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
@@ -30,27 +30,27 @@ export default function TermsPage() {
             className="mt-12 space-y-8 font-body text-muted"
           >
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">1. Acceptance of Terms</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">1. Acceptance of Terms</h2>
               <p>By accessing and using West Ave Group services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">2. Membership</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">2. Membership</h2>
               <p>Membership is subject to application and approval. West Ave Group reserves the right to accept or decline any membership application at its sole discretion. Membership fees are non-refundable except as otherwise provided herein.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">3. Services</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">3. Services</h2>
               <p>West Ave Group provides concierge services, access to curated experiences, and member benefits. The availability and nature of services may vary and are subject to change without notice.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">4. Privacy</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">4. Privacy</h2>
               <p>Your privacy is important to us. Please review our <Link href="/privacy" className="underline">Privacy Policy</Link> for information on how we collect, use, and protect your personal information.</p>
             </section>
 
             <section>
-              <h2 className="font-headline text-2xl text-black mb-4">5. Contact</h2>
+              <h2 className="font-headline text-2xl text-white mb-4">5. Contact</h2>
               <p>For questions about these Terms, please contact us at legal@westavegroup.com.</p>
             </section>
           </motion.div>

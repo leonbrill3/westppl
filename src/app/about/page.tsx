@@ -61,7 +61,7 @@ const milestones = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black text-white">
       <Header />
 
       {/* Hero */}
@@ -170,7 +170,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-off-white py-24 px-6 lg:px-12">
+      <section className="bg-dark-gray py-24 px-6 lg:px-12">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Our Journey</span>

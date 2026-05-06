@@ -262,7 +262,7 @@ export default function EventsPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
 
                         {/* Date Badge */}
-                        <div className="absolute top-6 left-6 bg-white px-4 py-3 rounded-lg text-center">
+                        <div className="absolute top-6 left-6 bg-black text-white px-4 py-3 rounded-lg text-center">
                           <p className="font-caps text-xs text-muted">
                             {new Date(featuredEvent.date).toLocaleDateString("en-US", { month: "short" })}
                           </p>
@@ -350,7 +350,7 @@ export default function EventsPage() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 {/* Date */}
-                                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg text-center">
+                                <div className="absolute top-4 left-4 bg-black text-white/95 backdrop-blur-sm px-3 py-2 rounded-lg text-center">
                                   <p className="font-caps text-[10px] text-muted">
                                     {new Date(event.date).toLocaleDateString("en-US", { month: "short" })}
                                   </p>
@@ -367,7 +367,7 @@ export default function EventsPage() {
                                 )}
 
                                 {/* Hover Arrow */}
-                                <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                                <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
                                   <ArrowUpRight className="w-4 h-4" />
                                 </div>
                               </div>
