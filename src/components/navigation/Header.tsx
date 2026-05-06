@@ -39,7 +39,7 @@ export function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <WestPplLogoSmall className="h-10 lg:h-12 w-auto text-white" />
+              <WestPplLogoSmall className="h-10 lg:h-12 w-32 lg:w-40" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -99,7 +99,7 @@ export function Header() {
               className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-black border-l border-border"
             >
               <div className="flex items-center justify-between p-6 border-b border-border">
-                <WestPplLogoSmall className="h-8 w-auto text-white" />
+                <WestPplLogoSmall className="h-8 w-28" />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2 text-white hover:text-pink transition-colors"
