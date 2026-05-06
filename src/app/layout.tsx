@@ -1,43 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Bebas_Neue, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-serif",
   subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "West/PPL - Where Culture Lives",
+  title: "WEST - The Members Platform by West Ave Group",
   description:
-    "An elevated community for sizzling souls. Exclusive events, curated experiences, and deep connections across Miami, LA, and NYC.",
+    "Exclusive access. Curated experiences. Elevated living. The members platform by West Ave Group.",
   keywords: [
-    "west ppl",
-    "community",
+    "west ave group",
+    "west mag",
+    "members club",
+    "luxury experiences",
+    "concierge",
     "miami",
     "los angeles",
     "new york",
-    "events",
-    "exclusive",
-    "members club",
-    "social club",
-    "culture",
+    "exclusive events",
+    "travel",
+    "fashion",
+    "wellness",
   ],
   openGraph: {
-    title: "West/PPL - Where Culture Lives",
+    title: "WEST - The Members Platform",
     description:
-      "An elevated community for sizzling souls. Exclusive events, curated experiences, and deep connections.",
+      "Exclusive access. Curated experiences. Elevated living.",
     type: "website",
   },
 };
@@ -50,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${bebasNeue.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

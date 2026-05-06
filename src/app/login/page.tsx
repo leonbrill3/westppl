@@ -1,215 +1,123 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Header } from "@/components/navigation/Header";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Mail, Phone, Loader2 } from "lucide-react";
-import { Logo } from "@/components/navigation/Logo";
-import { Button } from "@/components/ui/Button";
-
-function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/dashboard";
-
-  const [method, setMethod] = useState<"email" | "phone">("email");
-  const [value, setValue] = useState("");
-  const [codeSent, setCodeSent] = useState(false);
-  const [code, setCode] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSendCode = async () => {
-    setError("");
-    setIsLoading(true);
-
-    // Validate
-    if (method === "email" && !value.includes("@")) {
-      setError("Please enter a valid email address");
-      setIsLoading(false);
-      return;
-    }
-
-    if (method === "phone" && value.length < 10) {
-      setError("Please enter a valid phone number");
-      setIsLoading(false);
-      return;
-    }
-
-    // TODO: Call Supabase auth
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setCodeSent(true);
-    setIsLoading(false);
-  };
-
-  const handleVerifyCode = async () => {
-    setError("");
-    setIsLoading(true);
-
-    if (code.length !== 6) {
-      setError("Please enter a 6-digit code");
-      setIsLoading(false);
-      return;
-    }
-
-    // TODO: Verify with Supabase
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push(redirect);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      <h1 className="font-editorial text-3xl mb-2">Welcome back</h1>
-      <p className="text-muted mb-8">
-        {codeSent
-          ? `We sent a code to ${value}`
-          : "Sign in to access your member dashboard"}
-      </p>
-
-      {!codeSent ? (
-        <>
-          {/* Method Tabs */}
-          <div className="flex border border-border rounded-lg p-1 mb-6">
-            <button
-              onClick={() => setMethod("email")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded text-sm font-medium transition-colors ${
-                method === "email"
-                  ? "bg-foreground text-background"
-                  : "text-muted hover:text-foreground"
-              }`}
-            >
-              <Mail className="w-4 h-4" />
-              Email
-            </button>
-            <button
-              onClick={() => setMethod("phone")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded text-sm font-medium transition-colors ${
-                method === "phone"
-                  ? "bg-foreground text-background"
-                  : "text-muted hover:text-foreground"
-              }`}
-            >
-              <Phone className="w-4 h-4" />
-              Phone
-            </button>
-          </div>
-
-          {/* Input */}
-          <input
-            type={method === "email" ? "email" : "tel"}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder={
-              method === "email" ? "you@example.com" : "+1 (555) 123-4567"
-            }
-            className="w-full px-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-foreground mb-4"
-          />
-
-          {error && (
-            <p className="text-red-500 text-sm mb-4">{error}</p>
-          )}
-
-          <Button
-            onClick={handleSendCode}
-            disabled={isLoading || !value}
-            className="w-full"
-            size="lg"
-          >
-            {isLoading ? "Sending..." : "Send Code"}
-          </Button>
-        </>
-      ) : (
-        <>
-          {/* Code Input */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">
-              Enter verification code
-            </label>
-            <input
-              type="text"
-              value={code}
-              onChange={(e) =>
-                setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
-              }
-              placeholder="000000"
-              className="w-full px-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-foreground text-center text-2xl tracking-[0.5em] font-mono"
-              maxLength={6}
-            />
-          </div>
-
-          {error && (
-            <p className="text-red-500 text-sm mb-4">{error}</p>
-          )}
-
-          <Button
-            onClick={handleVerifyCode}
-            disabled={isLoading || code.length !== 6}
-            className="w-full mb-4"
-            size="lg"
-          >
-            {isLoading ? "Verifying..." : "Verify"}
-          </Button>
-
-          <button
-            onClick={() => {
-              setCodeSent(false);
-              setCode("");
-            }}
-            className="text-sm text-muted hover:text-foreground w-full text-center"
-          >
-            Use a different {method}
-          </button>
-        </>
-      )}
-
-      <p className="text-sm text-muted text-center mt-8">
-        Not a member yet?{" "}
-        <Link href="/apply" className="underline hover:text-foreground">
-          Apply to join
-        </Link>
-      </p>
-    </motion.div>
-  );
-}
-
-function LoginFormFallback() {
-  return (
-    <div className="flex items-center justify-center py-12">
-      <Loader2 className="w-6 h-6 animate-spin text-muted" />
-    </div>
-  );
-}
+import { ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <div className="p-6">
-        <Link href="/">
-          <Logo className="h-6" />
-        </Link>
-      </div>
+    <main className="min-h-screen bg-white">
+      <Header />
 
-      {/* Content */}
-      <div className="flex-1 flex items-center justify-center px-6">
-        <div className="w-full max-w-md">
-          <Link
-            href="/"
-            className="inline-flex items-center text-sm text-muted hover:text-foreground mb-8"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to home
-          </Link>
+      <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+            {/* Left Side */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="hidden lg:block"
+            >
+              <h1 className="font-headline text-7xl">
+                Welcome
+                <br />
+                Back
+              </h1>
+              <p className="font-body text-xl text-muted mt-6 max-w-md">
+                Access your member dashboard, manage bookings, and explore exclusive content.
+              </p>
+              <div className="mt-12">
+                <p className="font-caps text-muted">Not a member yet?</p>
+                <Link href="/apply" className="link-underline font-caps mt-2 inline-block">
+                  Apply for Membership
+                </Link>
+              </div>
+            </motion.div>
 
-          <Suspense fallback={<LoginFormFallback />}>
-            <LoginForm />
-          </Suspense>
+            {/* Login Form */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-off-white p-8 lg:p-12 max-w-md mx-auto lg:mx-0 w-full"
+            >
+              <div className="flex items-center gap-1 mb-8">
+                <span className="font-headline text-3xl">WEST</span>
+                <span className="font-caps text-[10px] text-muted mt-2">MEMBERS</span>
+              </div>
+
+              <form className="space-y-6">
+                <div>
+                  <label className="font-caps text-sm text-muted block mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    placeholder="your@email.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-caps text-sm text-muted block mb-2">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full px-4 py-3 bg-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" className="w-4 h-4 accent-black" />
+                    <span className="font-caps text-xs text-muted">Remember me</span>
+                  </label>
+                  <Link href="/forgot-password" className="font-caps text-xs text-muted hover:text-black transition-colors">
+                    Forgot Password?
+                  </Link>
+                </div>
+
+                <button type="submit" className="btn-primary w-full">
+                  Sign In
+                </button>
+              </form>
+
+              <div className="mt-8 pt-8 border-t border-border">
+                <p className="font-caps text-sm text-muted text-center">
+                  Need assistance?{" "}
+                  <Link href="/contact" className="text-black hover:underline">
+                    Contact Support
+                  </Link>
+                </p>
+              </div>
+
+              <div className="lg:hidden mt-8 text-center">
+                <p className="font-caps text-muted">Not a member?</p>
+                <Link href="/apply" className="btn-outline mt-4 inline-flex items-center gap-2">
+                  Apply Now
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+        <div className="max-w-[1600px] mx-auto text-center">
+          <Link href="/" className="font-headline text-2xl">
+            WEST
+          </Link>
+          <p className="font-caps text-subtle mt-4">
+            &copy; 2025 West Ave Group. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </main>
   );
 }

@@ -1,587 +1,399 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
-import { InstagramIcon } from "@/components/icons/InstagramIcon";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/navigation/Header";
-import { CHAPTERS, type Chapter } from "@/types";
+import { InstagramIcon } from "@/components/icons/InstagramIcon";
 
-const chapters = Object.values(CHAPTERS);
+// Concierge Categories
+const conciergeCategories = [
+  {
+    id: "travel",
+    title: "TRAVEL",
+    subtitle: "CURATED GETAWAYS",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
+  },
+  {
+    id: "dining",
+    title: "DINING",
+    subtitle: "RESERVATIONS & ACCESS",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+  },
+  {
+    id: "fashion",
+    title: "FASHION",
+    subtitle: "PERSONAL SHOPPING",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+  },
+  {
+    id: "wellness",
+    title: "WELLNESS",
+    subtitle: "MIND & BODY",
+    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80",
+  },
+  {
+    id: "home",
+    title: "HOME",
+    subtitle: "DESIGN & SERVICES",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+  },
+];
 
-const chapterImages: Record<Chapter, string> = {
-  miami: "https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=1800&q=80",
-  la: "https://images.unsplash.com/photo-1515896769750-31548aa180ed?w=1800&q=80",
-  nyc: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1800&q=80",
-};
+// Curated Experiences
+const experiences = [
+  {
+    id: 1,
+    category: "FEATURED",
+    title: "Coachella 2025",
+    subtitle: "VIP ACCESS PACKAGES",
+    date: "APR 11 - 13",
+    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80",
+  },
+  {
+    id: 2,
+    category: "TRAVEL",
+    title: "Amalfi Coast Escape",
+    subtitle: "PRIVATE VILLA EXPERIENCE",
+    date: "MAY 22 - 26",
+    image: "https://images.unsplash.com/photo-1534008897995-27a23e859048?w=800&q=80",
+  },
+  {
+    id: 3,
+    category: "FASHION",
+    title: "Paris Couture Week",
+    subtitle: "BACKSTAGE ACCESS",
+    date: "JUL 7 - 10",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+  },
+];
 
-const featuredImages = [
-  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80",
-  "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
-  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",
-  "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80",
+// Magazine Articles
+const articles = [
+  {
+    id: 1,
+    category: "BEAUTY",
+    title: "The New Era of Conscious Beauty",
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80",
+  },
+  {
+    id: 2,
+    category: "TRAVEL",
+    title: "Where to Go Next: Our Summer Edit",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+  },
+  {
+    id: 3,
+    category: "FASHION",
+    title: "Quiet Luxury, Loud Impact",
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+  },
+  {
+    id: 4,
+    category: "DESIGN",
+    title: "Inside the Minds of Leading Designers",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80",
+  },
 ];
 
 export default function Home() {
-  const [activeChapter, setActiveChapter] = useState<Chapter>("miami");
-  const [currentWord, setCurrentWord] = useState(0);
-  const heroRef = useRef<HTMLDivElement>(null);
+  const [experienceIndex, setExperienceIndex] = useState(0);
+  const experiencesRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
+  const nextExperience = () => {
+    setExperienceIndex((prev) => (prev + 1) % experiences.length);
+  };
 
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-  const textY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
-
-  const rotatingWords = ["souls", "creators", "visionaries", "dreamers"];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % rotatingWords.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const prevExperience = () => {
+    setExperienceIndex((prev) => (prev - 1 + experiences.length) % experiences.length);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header variant="transparent" />
+    <div className="min-h-screen bg-white">
+      <Header />
 
-      {/* Hero Section - Editorial Full Screen */}
-      <section ref={heroRef} className="relative h-[100svh] overflow-hidden">
-        <motion.div
-          style={{ opacity: heroOpacity, scale: heroScale }}
-          className="absolute inset-0"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeChapter}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={chapterImages[activeChapter]}
-                alt={CHAPTERS[activeChapter].name}
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Hero Content */}
-        <motion.div
-          style={{ y: textY }}
-          className="relative h-full flex flex-col justify-between pt-32 pb-12 px-6 lg:px-12"
-        >
-          {/* Top - Tagline */}
-          <div className="max-w-[1400px] mx-auto w-full">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="font-caps text-white/80 mb-4"
-            >
-              A curated community
-            </motion.p>
-          </div>
-
-          {/* Center - Main Headline */}
-          <div className="max-w-[1400px] mx-auto w-full flex-1 flex items-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="font-editorial text-[clamp(3rem,12vw,10rem)] leading-[0.9] text-white"
-            >
-              For extraordinary{" "}
-              <span className="relative inline-block">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={currentWord}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-accent inline-block"
-                  >
-                    {rotatingWords[currentWord]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </motion.h1>
-          </div>
-
-          {/* Bottom - Chapter Selector & CTA */}
-          <div className="max-w-[1400px] mx-auto w-full">
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-              {/* Chapter Pills */}
-              <div className="flex flex-wrap gap-3">
-                {chapters.map((chapter, i) => (
-                  <motion.button
-                    key={chapter.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    onClick={() => setActiveChapter(chapter.id)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeChapter === chapter.id
-                        ? "bg-white text-foreground"
-                        : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-                    }`}
-                  >
-                    <MapPin className="w-3.5 h-3.5" />
-                    {chapter.name}
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 }}
-                className="flex gap-4"
-              >
-                <Link
-                  href="/apply"
-                  className="group flex items-center gap-3 bg-white text-foreground px-6 py-3 rounded-full font-medium transition-all hover:bg-cream"
-                >
-                  Apply to Join
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="/events"
-                  className="flex items-center gap-3 border border-white/30 text-white px-6 py-3 rounded-full font-medium transition-all hover:bg-white/10"
-                >
-                  Explore
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="w-px h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0"
-          />
-        </motion.div>
-      </section>
-
-      {/* Editorial Intro */}
-      <section className="py-32 px-6 lg:px-12 bg-cream">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="lg:col-span-7"
-            >
-              <p className="font-caps text-muted mb-6">The Mission</p>
-              <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8">
-                Life&apos;s about the journey and the remarkable people you meet along the way
-              </h2>
-              <p className="text-lg text-muted leading-relaxed max-w-2xl">
-                West/PPL is a members-only collective spanning Miami, Los Angeles, and New York.
-                We curate extraordinary experiences—from intimate rooftop dinners to legendary
-                Art Basel moments—for those who understand that the best things in life are better shared.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-5 lg:pt-24"
-            >
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden image-zoom">
-                    <Image
-                      src={featuredImages[0]}
-                      alt="Community"
-                      width={400}
-                      height={533}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                  <div className="p-6 bg-sand rounded-lg">
-                    <p className="font-caps text-muted mb-2">Members</p>
-                    <p className="font-editorial text-3xl">500+</p>
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="p-6 bg-foreground text-background rounded-lg">
-                    <p className="font-caps text-background/60 mb-2">Chapters</p>
-                    <p className="font-editorial text-3xl">3</p>
-                  </div>
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden image-zoom">
-                    <Image
-                      src={featuredImages[1]}
-                      alt="Events"
-                      width={400}
-                      height={533}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Chapters Section - Horizontal Scroll Feel */}
-      <section className="py-32 px-6 lg:px-12 bg-background">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16">
-            <div>
-              <p className="font-caps text-muted mb-4">Our Chapters</p>
-              <h2 className="font-editorial text-4xl md:text-5xl">Three cities, one tribe</h2>
-            </div>
-            <Link
-              href="/about"
-              className="hidden lg:flex items-center gap-2 text-sm font-medium link-underline mt-4 lg:mt-0"
-            >
-              Learn more about us
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-6">
-            {chapters.map((chapter, i) => (
-              <motion.div
-                key={chapter.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-              >
-                <Link href={`/${chapter.id}`} className="group block">
-                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-6">
-                    <Image
-                      src={chapterImages[chapter.id]}
-                      alt={chapter.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors duration-500" />
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <div
-                        className="w-3 h-3 rounded-full mb-4"
-                        style={{ backgroundColor: chapter.color }}
-                      />
-                      <h3 className="font-editorial text-3xl text-white mb-2">
-                        {chapter.name}
-                      </h3>
-                      <p className="text-white/70">{chapter.fullName}</p>
-                    </div>
-
-                    {/* Arrow */}
-                    <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-white">
-                      <ArrowUpRight className="w-4 h-4 text-white group-hover:text-foreground transition-colors" />
-                    </div>
-                  </div>
-
-                  <p className="text-muted italic">&ldquo;{chapter.tagline}&rdquo;</p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Experiences */}
-      <section className="py-32 bg-foreground text-background overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mb-16">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="font-caps text-background/60 mb-4">Experiences</p>
-              <h2 className="font-editorial text-4xl md:text-5xl">Curated moments</h2>
-            </div>
-            <Link
-              href="/events"
-              className="hidden lg:flex items-center gap-2 text-sm font-medium text-background/70 hover:text-background transition-colors mt-4 lg:mt-0"
-            >
-              View all events
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Marquee */}
-        <div className="relative">
-          <div className="flex animate-marquee">
-            {[...featuredImages, ...featuredImages].map((img, i) => (
-              <div key={i} className="flex-shrink-0 w-[400px] mx-3">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden">
-                  <Image
-                    src={img}
-                    alt={`Event ${i + 1}`}
-                    width={400}
-                    height={533}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-16">
-          <div className="grid md:grid-cols-4 gap-8 pt-16 border-t border-background/10">
-            {[
-              { label: "Events per month", value: "12+" },
-              { label: "Active members", value: "500+" },
-              { label: "Brand partners", value: "25+" },
-              { label: "Cities", value: "3" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <p className="font-editorial text-4xl mb-2">{stat.value}</p>
-                <p className="text-sm text-background/60">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Membership Perks */}
-      <section className="py-32 px-6 lg:px-12 bg-cream">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-20">
-            <p className="font-caps text-muted mb-4">Membership</p>
-            <h2 className="font-editorial text-4xl md:text-5xl mb-6">More than just events</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">
-              Being part of West/PPL means access to a world of exclusive experiences,
-              partnerships, and a network of extraordinary individuals.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Curated Events",
-                desc: "From intimate dinners to legendary parties, every gathering is thoughtfully designed.",
-                icon: "01",
-              },
-              {
-                title: "Brand Partnerships",
-                desc: "Exclusive access to collaborations with premium brands and experiences.",
-                icon: "02",
-              },
-              {
-                title: "Global Network",
-                desc: "Connect with like-minded individuals across all three chapters.",
-                icon: "03",
-              },
-              {
-                title: "Member Perks",
-                desc: "VIP treatment at partner venues, restaurants, and hotels.",
-                icon: "04",
-              },
-              {
-                title: "Priority Access",
-                desc: "First dibs on limited-capacity events and exclusive drops.",
-                icon: "05",
-              },
-              {
-                title: "Community",
-                desc: "A supportive network that celebrates creativity and connection.",
-                icon: "06",
-              },
-            ].map((perk, i) => (
-              <motion.div
-                key={perk.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group p-8 bg-background rounded-xl hover:shadow-xl transition-all duration-500 card-hover"
-              >
-                <p className="font-caps text-accent mb-4">{perk.icon}</p>
-                <h3 className="font-editorial text-2xl mb-3">{perk.title}</h3>
-                <p className="text-muted">{perk.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-40 px-6 lg:px-12 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src={chapterImages.miami}
-            alt="Join"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-foreground/80" />
-        </div>
-
-        <div className="relative max-w-3xl mx-auto text-center">
+      {/* Hero Section - Split Layout */}
+      <section className="pt-20 lg:pt-0 min-h-screen flex flex-col lg:flex-row">
+        {/* Left - Text */}
+        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 py-16 lg:py-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <p className="font-caps text-background/60 mb-6">Join Us</p>
-            <h2 className="font-editorial text-4xl md:text-6xl text-background mb-6">
-              Ready to join something extraordinary?
-            </h2>
-            <p className="text-lg text-background/70 mb-10 max-w-xl mx-auto">
-              West/PPL is invite-only. Apply now and become part of our growing
-              community of remarkable individuals.
+            <h1 className="font-headline text-[clamp(3rem,8vw,6rem)] leading-[0.9] mb-8">
+              WELCOME<br />TO WEST.
+            </h1>
+            <p className="font-caps text-muted mb-8 max-w-md">
+              THE MEMBERS PLATFORM BY WEST AVE GROUP.<br />
+              EXCLUSIVE ACCESS. CURATED EXPERIENCES.<br />
+              ELEVATED LIVING.
             </p>
-            <Link
-              href="/apply"
-              className="inline-flex items-center gap-3 bg-white text-foreground px-8 py-4 rounded-full font-medium text-lg transition-all hover:bg-cream hover:scale-105"
-            >
-              Apply Now
-              <ArrowRight className="w-5 h-5" />
+            <Link href="/marketplace" className="btn-outline inline-flex">
+              EXPLORE CONCIERGE
             </Link>
           </motion.div>
+        </div>
+
+        {/* Right - Image */}
+        <div className="lg:w-1/2 relative min-h-[50vh] lg:min-h-screen">
+          <Image
+            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80"
+            alt="West Ave Group"
+            fill
+            className="object-cover grayscale"
+            priority
+          />
+        </div>
+      </section>
+
+      {/* Concierge Marketplace */}
+      <section className="py-16 px-8 lg:px-16 border-t border-border">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="font-caps text-sm">CONCIERGE MARKETPLACE</h2>
+            <Link href="/marketplace" className="font-caps text-sm flex items-center gap-2 hover:text-muted transition-colors">
+              VIEW ALL <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {conciergeCategories.map((cat, i) => (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link href={`/marketplace/${cat.id}`} className="group block">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                    <div className="absolute bottom-0 left-0 p-4">
+                      <h3 className="font-headline text-xl text-white mb-1">{cat.title}</h3>
+                      <p className="font-caps text-[10px] text-white/70">{cat.subtitle}</p>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Curated Experiences */}
+      <section className="py-16 bg-black text-white">
+        <div className="max-w-[1600px] mx-auto px-8 lg:px-16">
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Left Column - Title */}
+            <div className="lg:col-span-3 flex flex-col justify-between">
+              <div>
+                <h2 className="font-caps text-sm text-white/60 mb-4">CURATED EXPERIENCES</h2>
+                <p className="text-lg leading-relaxed mb-8">
+                  Exclusive access to the world&apos;s most sought-after events, destinations, and moments.
+                </p>
+                <p className="font-caps text-xs text-white/60 mb-6">BY INVITATION ONLY.</p>
+                <Link href="/experiences" className="btn-white inline-flex">
+                  DISCOVER EXPERIENCES
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column - Carousel */}
+            <div className="lg:col-span-9" ref={experiencesRef}>
+              <div className="relative">
+                <div className="flex gap-4 overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    {experiences.map((exp, i) => (
+                      <motion.div
+                        key={exp.id}
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{
+                          opacity: i >= experienceIndex && i < experienceIndex + 3 ? 1 : 0,
+                          x: 0
+                        }}
+                        exit={{ opacity: 0, x: -100 }}
+                        className={`flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] ${
+                          i >= experienceIndex && i < experienceIndex + 3 ? 'block' : 'hidden md:block'
+                        }`}
+                      >
+                        <Link href={`/experiences/${exp.id}`} className="group block">
+                          <div className="relative aspect-[3/4] overflow-hidden mb-4">
+                            <Image
+                              src={exp.image}
+                              alt={exp.title}
+                              fill
+                              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                            />
+                          </div>
+                          <p className="font-caps text-[10px] text-taupe mb-2">{exp.category}</p>
+                          <h3 className="font-headline text-2xl mb-1">{exp.title}</h3>
+                          <p className="font-caps text-xs text-white/60 mb-1">{exp.subtitle}</p>
+                          <p className="font-caps text-xs text-white/40">{exp.date}</p>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+
+                {/* Navigation Arrows */}
+                <div className="flex gap-2 mt-8 justify-end">
+                  <button
+                    onClick={prevExperience}
+                    className="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextExperience}
+                    className="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* West Mag Section */}
+      <section className="py-16 px-8 lg:px-16 border-t border-border">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Left - Title */}
+            <div className="lg:col-span-2">
+              <h2 className="font-headline text-4xl mb-4">WEST MAG</h2>
+              <p className="text-muted mb-6">Stories that inspire, connect, and elevate.</p>
+              <Link href="/magazine" className="btn-outline inline-flex">
+                READ THE LATEST
+              </Link>
+            </div>
+
+            {/* Right - Articles Grid */}
+            <div className="lg:col-span-10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {articles.map((article, i) => (
+                  <motion.div
+                    key={article.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Link href={`/magazine/${article.id}`} className="group block">
+                      <div className="relative aspect-[3/4] overflow-hidden mb-4">
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        />
+                      </div>
+                      <p className="font-caps text-[10px] text-muted mb-2">{article.category}</p>
+                      <h3 className="text-sm leading-snug">{article.title}</h3>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 lg:px-12 bg-background border-t border-border">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 mb-20">
-            {/* Brand */}
-            <div className="lg:col-span-4">
-              <Link href="/" className="font-editorial text-3xl inline-block mb-6">
-                west<span className="text-muted/50">/</span>ppl
+      <footer className="bg-black text-white py-16 px-8 lg:px-16">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="grid lg:grid-cols-12 gap-12 mb-16">
+            {/* Logo & Tagline */}
+            <div className="lg:col-span-3">
+              <Link href="/" className="block mb-4">
+                <span className="font-headline text-3xl">WEST AVE</span>
+                <span className="font-headline text-3xl block">GROUP</span>
               </Link>
-              <p className="text-muted mb-6 max-w-sm">
-                An elevated community for extraordinary souls. Miami. Los Angeles. New York.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  href="https://instagram.com/westppl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-sand flex items-center justify-center hover:bg-stone transition-colors"
-                >
-                  <InstagramIcon className="w-4 h-4" />
+              <p className="font-caps text-xs text-white/60 mb-2">BUILDING CULTURE.</p>
+              <p className="font-caps text-xs text-white/60">ELEVATING LIFESTYLE.</p>
+            </div>
+
+            {/* Members Links */}
+            <div className="lg:col-span-2">
+              <h4 className="font-caps text-xs text-white/60 mb-6">MEMBERS</h4>
+              <ul className="space-y-3">
+                <li><Link href="/dashboard" className="text-sm hover:text-white/60 transition-colors">Dashboard</Link></li>
+                <li><Link href="/dashboard/profile" className="text-sm hover:text-white/60 transition-colors">Profile</Link></li>
+                <li><Link href="/dashboard/preferences" className="text-sm hover:text-white/60 transition-colors">Preferences</Link></li>
+                <li><Link href="/dashboard/bookings" className="text-sm hover:text-white/60 transition-colors">Bookings</Link></li>
+                <li><Link href="/dashboard/wallet" className="text-sm hover:text-white/60 transition-colors">Wallet</Link></li>
+              </ul>
+            </div>
+
+            {/* Concierge Links */}
+            <div className="lg:col-span-2">
+              <h4 className="font-caps text-xs text-white/60 mb-6">CONCIERGE</h4>
+              <ul className="space-y-3">
+                <li><Link href="/marketplace" className="text-sm hover:text-white/60 transition-colors">Request Something</Link></li>
+                <li><Link href="/dashboard/requests" className="text-sm hover:text-white/60 transition-colors">My Requests</Link></li>
+                <li><Link href="/dashboard/favorites" className="text-sm hover:text-white/60 transition-colors">Favorites</Link></li>
+                <li><Link href="/support" className="text-sm hover:text-white/60 transition-colors">Support</Link></li>
+              </ul>
+            </div>
+
+            {/* Company Links */}
+            <div className="lg:col-span-2">
+              <h4 className="font-caps text-xs text-white/60 mb-6">COMPANY</h4>
+              <ul className="space-y-3">
+                <li><Link href="/about" className="text-sm hover:text-white/60 transition-colors">About Us</Link></li>
+                <li><Link href="/careers" className="text-sm hover:text-white/60 transition-colors">Careers</Link></li>
+                <li><Link href="/partnerships" className="text-sm hover:text-white/60 transition-colors">Partnerships</Link></li>
+                <li><Link href="/press" className="text-sm hover:text-white/60 transition-colors">Press</Link></li>
+              </ul>
+            </div>
+
+            {/* Newsletter */}
+            <div className="lg:col-span-3">
+              <h4 className="font-caps text-xs text-white/60 mb-6">STAY CONNECTED</h4>
+              <p className="text-sm text-white/80 mb-4">Curated inspiration, delivered to you.</p>
+              <div className="flex">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 bg-transparent border border-white/30 px-4 py-3 text-sm focus:outline-none focus:border-white"
+                />
+                <button className="w-12 border border-white/30 border-l-0 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex gap-4 mt-6">
+                <a href="https://instagram.com/westavegroup" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">
+                  <InstagramIcon className="w-5 h-5" />
+                </a>
+                <a href="https://facebook.com/westavegroup" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="mailto:hello@westavegroup.com" className="hover:text-white/60 transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </a>
               </div>
             </div>
-
-            {/* Links */}
-            <div className="lg:col-span-2">
-              <p className="font-caps text-muted mb-6">Chapters</p>
-              <ul className="space-y-3">
-                {chapters.map((chapter) => (
-                  <li key={chapter.id}>
-                    <Link
-                      href={`/${chapter.id}`}
-                      className="text-foreground/70 hover:text-foreground transition-colors"
-                    >
-                      {chapter.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="lg:col-span-2">
-              <p className="font-caps text-muted mb-6">Explore</p>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/events" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Events
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/culture" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Culture
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="text-foreground/70 hover:text-foreground transition-colors">
-                    About
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="lg:col-span-2">
-              <p className="font-caps text-muted mb-6">Connect</p>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/apply" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Apply
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/sponsors" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Partners
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Member Login
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="lg:col-span-2">
-              <p className="font-caps text-muted mb-6">Legal</p>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/privacy" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Privacy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="text-foreground/70 hover:text-foreground transition-colors">
-                    Terms
-                  </Link>
-                </li>
-              </ul>
-            </div>
           </div>
 
-          <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted">
-              &copy; {new Date().getFullYear()} West/PPL. All rights reserved.
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="font-caps text-xs text-white/40">
+              &copy; {new Date().getFullYear()} WEST AVE GROUP. ALL RIGHTS RESERVED.
             </p>
-            <p className="text-sm text-muted">
-              Miami &bull; Los Angeles &bull; New York
-            </p>
+            <div className="flex gap-8">
+              <Link href="/terms" className="font-caps text-xs text-white/40 hover:text-white/60 transition-colors">TERMS OF SERVICE</Link>
+              <Link href="/privacy" className="font-caps text-xs text-white/40 hover:text-white/60 transition-colors">PRIVACY POLICY</Link>
+            </div>
           </div>
         </div>
       </footer>
