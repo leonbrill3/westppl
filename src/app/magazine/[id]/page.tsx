@@ -78,7 +78,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
       <Header />
 
       {/* Back Link */}
-      <div className="pt-24 px-6 lg:px-12">
+      <div className="pt-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/magazine"
@@ -91,7 +91,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
       </div>
 
       {/* Article Header */}
-      <article className="px-6 lg:px-12 py-12">
+      <article className="px-6 md:px-10 lg:px-16 xl:px-24 py-12">
         <div className="max-w-[900px] mx-auto">
           <motion.header
             initial={{ opacity: 0, y: 20 }}
@@ -177,7 +177,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
       </article>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12 mt-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24 mt-12">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

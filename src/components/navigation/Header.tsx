@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { WestPplLogoSmall } from "@/components/icons/WestPplLogo";
+import { createClient } from "@/lib/supabase/client";
 
 const navItems = [
   { label: "Community", href: "/community" },
@@ -15,8 +17,10 @@ const navItems = [
 ];
 
 export function Header() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuthed, setIsAuthed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +29,25 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setIsAuthed(!!data.user));
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthed(!!session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setMobileMenuOpen(false);
+    router.push("/");
+    router.refresh();
+  };
 
   return (
     <>
@@ -35,7 +58,7 @@ export function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 xl:px-24">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center">
@@ -57,18 +80,37 @@ export function Header() {
 
             {/* Right Side */}
             <div className="flex items-center gap-4">
-              <Link
-                href="/login"
-                className="hidden lg:inline-flex font-caps text-xs text-white/80 hover:text-pink transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/apply"
-                className="hidden lg:inline-flex btn-primary text-xs py-2 px-4"
-              >
-                Join
-              </Link>
+              {isAuthed ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="hidden lg:inline-flex font-caps text-xs text-white/80 hover:text-pink transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="hidden lg:inline-flex btn-primary text-xs py-2 px-4"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="hidden lg:inline-flex font-caps text-xs text-white/80 hover:text-pink transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/apply"
+                    className="hidden lg:inline-flex btn-primary text-xs py-2 px-4"
+                  >
+                    Join
+                  </Link>
+                </>
+              )}
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-white hover:text-pink transition-colors"
@@ -123,20 +165,40 @@ export function Header() {
                 </ul>
               </nav>
               <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border space-y-3">
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="btn-outline w-full"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/apply"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="btn-primary w-full"
-                >
-                  Join West Ppl
-                </Link>
+                {isAuthed ? (
+                  <>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="btn-outline w-full"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="btn-primary w-full"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="btn-outline w-full"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/apply"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="btn-primary w-full"
+                    >
+                      Join West Ppl
+                    </Link>
+                  </>
+                )}
               </div>
             </motion.div>
           </>

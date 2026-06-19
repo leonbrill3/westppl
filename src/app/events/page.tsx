@@ -139,7 +139,7 @@ export default function EventsPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 lg:px-12 bg-cream">
+      <section className="pt-32 pb-16 px-6 md:px-10 lg:px-16 xl:px-24 bg-cream">
         <div className="max-w-[1400px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ export default function EventsPage() {
 
       {/* Filters */}
       <section className="sticky top-16 lg:top-20 z-40 bg-background/95 backdrop-blur-nav border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-4">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 xl:px-24 py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             {/* Chapter Pills */}
             <div className="flex flex-wrap gap-2">
@@ -211,7 +211,7 @@ export default function EventsPage() {
       </section>
 
       {/* Events Content */}
-      <section className="py-16 px-6 lg:px-12">
+      <section className="py-16 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1400px] mx-auto">
           <AnimatePresence mode="wait">
             {filteredEvents.length === 0 ? (
@@ -419,23 +419,28 @@ export default function EventsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 lg:px-12 bg-cream">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24 bg-dark-gray border-t border-border">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-caps text-muted mb-4">Get Access</p>
-          <h2 className="font-editorial text-3xl md:text-4xl mb-6">
-            Want to attend exclusive members-only events?
+          <p className="font-caps text-sm text-pink mb-4">Get Access</p>
+          <h2 className="font-headline text-3xl md:text-4xl mb-6">
+            Want in on members-only events?
           </h2>
-          <p className="text-muted mb-8">
-            Join West/PPL to unlock access to our full calendar of curated experiences
-            across Miami, Los Angeles, and New York.
+          <p className="font-body text-white/60 mb-8">
+            West Ppl is invite-only. Apply to unlock the full calendar of curated
+            events across Miami, Los Angeles, and New York.
           </p>
-          <Link
-            href="/apply"
-            className="inline-flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full font-medium transition-all hover:bg-foreground/90"
-          >
-            Apply to Join
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/apply"
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              Apply for Membership
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/login" className="btn-outline">
+              Member Sign In
+            </Link>
+          </div>
         </div>
       </section>
     </div>

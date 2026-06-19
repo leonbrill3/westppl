@@ -104,6 +104,44 @@ export type ArticleCategory =
   | "west-nights"
   | "travel";
 
+export interface Experience {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  location: string;
+  date: string;
+  priceFrom?: number;
+  category: "travel" | "events" | "dining" | "wellness" | "culture";
+  imageUrl: string;
+  membersOnly: boolean;
+}
+
+export interface MarketplaceCategory {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
+export interface MarketplaceListing {
+  id: string;
+  title: string;
+  category: string;
+  provider: string;
+  description: string;
+  imageUrl: string;
+}
+
+export interface Community {
+  id: Chapter;
+  name: string;
+  location: string;
+  imageUrl: string;
+  memberCount: number;
+  tagline: string;
+}
+
 export interface Application {
   id: string;
   name: string;

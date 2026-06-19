@@ -65,7 +65,7 @@ export default function AboutPage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-20 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-20 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -103,7 +103,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-black text-white py-24 px-6 lg:px-12">
+      <section className="bg-black text-white py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-subtle">Our Philosophy</span>
@@ -130,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="aspect-[4/3] relative">
@@ -170,7 +170,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-dark-gray py-24 px-6 lg:px-12">
+      <section className="bg-dark-gray py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Our Journey</span>
@@ -206,7 +206,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Leadership</span>
@@ -241,7 +241,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 lg:px-12 border-t border-border">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24 border-t border-border">
         <div className="max-w-[1600px] mx-auto text-center">
           <h2 className="font-headline text-4xl lg:text-5xl">
             Join Our Community
@@ -257,7 +257,7 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

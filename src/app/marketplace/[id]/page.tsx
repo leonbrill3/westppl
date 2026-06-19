@@ -151,7 +151,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       <Header />
 
       {/* Back Link */}
-      <div className="pt-24 px-6 lg:px-12">
+      <div className="pt-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/marketplace"
@@ -164,7 +164,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       </div>
 
       {/* Service Hero */}
-      <section className="px-6 lg:px-12 py-12">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 py-12">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             <motion.div
@@ -205,7 +205,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       </section>
 
       {/* Features & Includes */}
-      <section className="bg-dark-gray py-24 px-6 lg:px-12">
+      <section className="bg-dark-gray py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             <motion.div
@@ -244,7 +244,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <h2 className="font-headline text-4xl lg:text-5xl">
             Ready to Get Started?
@@ -264,7 +264,7 @@ export default function ServicePage({ params }: { params: Promise<{ id: string }
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

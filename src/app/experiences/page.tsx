@@ -7,74 +7,67 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
 
 const featuredExperience = {
-  id: "tuscany-harvest",
-  title: "Tuscan Harvest Experience",
-  location: "Tuscany, Italy",
-  date: "October 15-22, 2025",
-  description: "Seven days immersed in the traditions of Tuscan winemaking. Private vineyard tours, hands-on harvest, and dinners with legendary producers.",
-  image: "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=1600",
-  price: "$18,500",
-  spots: "8 spots remaining",
+  id: "members-trip-tulum",
+  title: "Members Trip: Tulum Reset",
+  location: "Tulum, Mexico",
+  date: "September 2026",
+  description: "A long weekend with the community — beach mornings, breathwork, and long dinners. The kind of trip that turns members into close friends.",
+  image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600",
+  status: "Members only · Apply to join",
 };
 
 const experiences = [
   {
-    id: "tokyo-culinary",
-    title: "Tokyo Culinary Journey",
-    location: "Tokyo, Japan",
-    date: "May 2025",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800",
-    price: "$12,500",
-    category: "Culinary",
+    id: "long-table-supper",
+    title: "Long-Table Supper",
+    location: "Miami",
+    date: "Jul 25, 2026",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    category: "Dinners",
   },
   {
-    id: "art-basel",
-    title: "Art Basel Private Preview",
-    location: "Basel, Switzerland",
-    date: "June 2025",
+    id: "rooftop-sessions",
+    title: "Rooftop Sessions: Live Set",
+    location: "Los Angeles",
+    date: "Aug 2, 2026",
+    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800",
+    category: "Music",
+  },
+  {
+    id: "gallery-night",
+    title: "Gallery Night: New Voices",
+    location: "New York",
+    date: "Aug 9, 2026",
     image: "https://images.unsplash.com/photo-1541367777708-7905fe3296c0?w=800",
-    price: "$8,500",
-    category: "Art & Culture",
+    category: "Art",
   },
   {
-    id: "patagonia-expedition",
-    title: "Patagonia Expedition",
-    location: "Patagonia, Argentina",
-    date: "December 2025",
-    image: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800",
-    price: "$22,000",
-    category: "Adventure",
+    id: "sunrise-breathwork",
+    title: "Sunrise Breathwork & Plunge",
+    location: "Miami",
+    date: "Aug 16, 2026",
+    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800",
+    category: "Wellness",
   },
   {
-    id: "fashion-week-milan",
-    title: "Milan Fashion Week Access",
-    location: "Milan, Italy",
-    date: "September 2025",
+    id: "nyfw-access",
+    title: "NYFW Members Access",
+    location: "New York",
+    date: "Sep 2026",
     image: "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800",
-    price: "$15,000",
     category: "Fashion",
   },
   {
-    id: "yacht-week-monaco",
-    title: "Monaco Yacht Week",
-    location: "Monaco",
-    date: "September 2025",
-    image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800",
-    price: "$35,000",
-    category: "Maritime",
-  },
-  {
-    id: "safari-kenya",
-    title: "Kenya Private Safari",
-    location: "Masai Mara, Kenya",
-    date: "August 2025",
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800",
-    price: "$28,000",
-    category: "Safari",
+    id: "amalfi-summer",
+    title: "Members Trip: Amalfi Summer",
+    location: "Amalfi, Italy",
+    date: "Jun 2026",
+    image: "https://images.unsplash.com/photo-1534008897995-27a23e859048?w=800",
+    category: "Trips",
   },
 ];
 
-const categories = ["All", "Culinary", "Art & Culture", "Adventure", "Fashion", "Maritime", "Safari"];
+const categories = ["All", "Dinners", "Music", "Art", "Wellness", "Fashion", "Trips"];
 
 export default function ExperiencesPage() {
   return (
@@ -82,25 +75,29 @@ export default function ExperiencesPage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-16 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-16 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="font-caps text-muted">Curated Experiences</span>
+            <span className="font-caps text-sm text-pink">Curated Programming</span>
             <h1 className="font-headline text-6xl lg:text-8xl mt-4">
-              Moments That
+              Things Worth
               <br />
-              Define a Life
+              Showing Up For
             </h1>
+            <p className="font-body text-xl text-muted mt-6 max-w-2xl">
+              Members-only dinners, music nights, art previews, wellness mornings,
+              and the occasional trip — across Miami, LA, and New York.
+            </p>
           </motion.div>
         </div>
       </section>
 
       {/* Featured Experience */}
-      <section className="px-6 lg:px-12 pb-20">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-20">
         <div className="max-w-[1600px] mx-auto">
           <Link href={`/experiences/${featuredExperience.id}`}>
             <motion.div
@@ -117,7 +114,7 @@ export default function ExperiencesPage() {
               />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
               <div className="absolute inset-0 p-8 lg:p-12 flex flex-col justify-end">
-                <span className="font-caps text-white/70">{featuredExperience.spots}</span>
+                <span className="font-caps text-[10px] text-pink bg-pink/15 px-3 py-1 self-start">{featuredExperience.status}</span>
                 <h2 className="font-headline text-4xl lg:text-6xl text-white mt-2">
                   {featuredExperience.title}
                 </h2>
@@ -141,7 +138,7 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Categories */}
-      <section className="px-6 lg:px-12 pb-12 border-t border-border pt-8">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-12 border-t border-border pt-8">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex gap-6 overflow-x-auto no-scrollbar">
             {categories.map((category, index) => (
@@ -159,7 +156,7 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Experiences Grid */}
-      <section className="px-6 lg:px-12 pb-24">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {experiences.map((experience, index) => (
@@ -196,7 +193,7 @@ export default function ExperiencesPage() {
                       <span className="font-caps text-xs">{experience.date}</span>
                     </span>
                   </div>
-                  <p className="font-headline text-lg mt-3">{experience.price}</p>
+                  <p className="font-caps text-xs text-pink mt-3">Members only</p>
                 </Link>
               </motion.div>
             ))}
@@ -205,7 +202,7 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Private Experiences CTA */}
-      <section className="bg-black text-white py-24 px-6 lg:px-12">
+      <section className="bg-black text-white py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -237,7 +234,7 @@ export default function ExperiencesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

@@ -1,18 +1,52 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Header } from "@/components/navigation/Header";
+import { Container } from "@/components/layout/Container";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+
+    const supabase = createClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+
+    if (signInError) {
+      setSubmitting(false);
+      setError("Invalid email or password. Please try again.");
+      return;
+    }
+
+    // Honor a ?redirect= param set by the auth middleware, else go to dashboard.
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect") || "/dashboard";
+    router.push(redirect);
+    router.refresh();
+  };
+
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white flex flex-col">
       <Header />
 
-      <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+      <section className="flex-1 flex items-center pt-24 lg:pt-32 pb-16">
+        <Container className="w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -20,7 +54,7 @@ export default function LoginPage() {
               transition={{ duration: 0.6 }}
               className="hidden lg:block"
             >
-              <h1 className="font-headline text-7xl">
+              <h1 className="font-headline text-7xl xl:text-8xl">
                 Welcome
                 <br />
                 Back
@@ -41,21 +75,24 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-dark-gray p-8 lg:p-12 max-w-md mx-auto lg:mx-0 w-full"
+              className="bg-dark-gray p-8 sm:p-10 lg:p-12 max-w-md w-full mx-auto lg:mx-0 lg:ml-auto"
             >
-              <div className="flex items-center gap-1 mb-8">
+              <div className="flex items-center gap-1 mb-10">
                 <span className="font-headline text-3xl">WEST</span>
                 <span className="font-caps text-[10px] text-muted mt-2">MEMBERS</span>
               </div>
 
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="font-caps text-sm text-muted block mb-2">
                     Email
                   </label>
                   <input
                     type="email"
-                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -66,14 +103,21 @@ export default function LoginPage() {
                   </label>
                   <input
                     type="password"
-                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-black transition-colors"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
                     placeholder="••••••••"
                   />
                 </div>
 
+                {error && (
+                  <p className="font-body text-sm text-red-400">{error}</p>
+                )}
+
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" className="w-4 h-4 accent-black" />
+                    <input type="checkbox" className="w-4 h-4 accent-white" />
                     <span className="font-caps text-xs text-muted">Remember me</span>
                   </label>
                   <Link href="/forgot-password" className="font-caps text-xs text-muted hover:text-white transition-colors">
@@ -81,8 +125,12 @@ export default function LoginPage() {
                   </Link>
                 </div>
 
-                <button type="submit" className="btn-primary w-full">
-                  Sign In
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? "Signing In..." : "Sign In"}
                 </button>
               </form>
 
@@ -104,19 +152,19 @@ export default function LoginPage() {
               </div>
             </motion.div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto text-center">
+      <footer className="bg-black text-white py-12">
+        <Container className="text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST
           </Link>
           <p className="font-caps text-subtle mt-4">
             &copy; 2025 West Ave Group. All rights reserved.
           </p>
-        </div>
+        </Container>
       </footer>
     </main>
   );

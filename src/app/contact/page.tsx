@@ -35,7 +35,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-20 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-20 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-16">
             <motion.div
@@ -166,7 +166,7 @@ export default function ContactPage() {
       </section>
 
       {/* Locations */}
-      <section className="bg-black text-white py-24 px-6 lg:px-12">
+      <section className="bg-black text-white py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-subtle">Locations</span>
@@ -199,7 +199,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[900px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">FAQ</span>
@@ -243,7 +243,7 @@ export default function ContactPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

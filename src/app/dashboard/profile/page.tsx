@@ -1,36 +1,102 @@
 "use client";
 
-import { Header } from "@/components/navigation/Header";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Check } from "lucide-react";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useCurrentMember } from "@/lib/hooks/useCurrentMember";
+import { CHAPTERS, type Chapter } from "@/types";
 
 export default function ProfilePage() {
+  const { member } = useCurrentMember();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [chapter, setChapter] = useState<Chapter>("la");
+  const [saved, setSaved] = useState(false);
+
+  // Hydrate the form once the member loads.
+  useEffect(() => {
+    if (!member) return;
+    setName(member.name);
+    setEmail(member.email);
+    setInstagram(member.instagram ?? "");
+    setChapter(member.chapter);
+  }, [member]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Placeholder. TODO: supabase.from("members").update({...}).eq("id", member.id)
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
+
   return (
-    <main className="min-h-screen bg-black text-white">
-      <Header />
-      <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 font-caps text-muted hover:text-white transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
-          </Link>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="font-caps text-muted">Dashboard</span>
-            <h1 className="font-headline text-6xl lg:text-7xl mt-4">Profile</h1>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="mt-16 p-8 bg-dark-gray">
-            <p className="font-body text-muted">This section is coming soon. Contact your concierge for assistance.</p>
-            <Link href="/contact" className="btn-primary mt-6">Contact Concierge</Link>
-          </motion.div>
+    <DashboardShell title="Profile">
+      <form onSubmit={handleSubmit} className="max-w-xl space-y-6">
+        <div className="grid sm:grid-cols-2 gap-6">
+          <div>
+            <label className="font-caps text-sm text-muted block mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+            />
+          </div>
+          <div>
+            <label className="font-caps text-sm text-muted block mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+            />
+          </div>
+          <div>
+            <label className="font-caps text-sm text-muted block mb-2">
+              Instagram
+            </label>
+            <input
+              type="text"
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+              placeholder="@username"
+              className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+            />
+          </div>
+          <div>
+            <label className="font-caps text-sm text-muted block mb-2">
+              Chapter
+            </label>
+            <select
+              value={chapter}
+              onChange={(e) => setChapter(e.target.value as Chapter)}
+              className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+            >
+              {Object.values(CHAPTERS).map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.fullName}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </section>
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto text-center">
-          <Link href="/" className="font-headline text-2xl">WEST</Link>
-          <p className="font-caps text-subtle mt-4">&copy; 2025 West Ave Group.</p>
+
+        <div className="flex items-center gap-4 pt-2">
+          <button type="submit" className="btn-primary">
+            Save Changes
+          </button>
+          {saved && (
+            <span className="font-caps text-xs text-pink inline-flex items-center gap-1">
+              <Check className="w-4 h-4" /> Saved
+            </span>
+          )}
         </div>
-      </footer>
-    </main>
+      </form>
+    </DashboardShell>
   );
 }

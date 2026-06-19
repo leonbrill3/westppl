@@ -11,3 +11,11 @@ services:
         value: production
       - key: NEXT_PUBLIC_SITE_URL
         sync: false
+      # Public by design (embedded in the client bundle); needed at build time.
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: https://roeovsbplbqjxjqdhjho.supabase.co
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvZW92c2JwbGJxanhqcWRoamhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MzIwMTEsImV4cCI6MjA5NzIwODAxMX0.0tEevvDOtCW_2ULjyD5G2xWosdfZtzvcTBLFbmy3bpE
+      # Secret — set in the Render dashboard / via API, never committed.
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

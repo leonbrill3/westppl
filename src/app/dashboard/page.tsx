@@ -1,76 +1,138 @@
 "use client";
 
-import { Header } from "@/components/navigation/Header";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { User, Settings, Calendar, Wallet, Heart, MessageSquare } from "lucide-react";
+import { ArrowRight, CreditCard, CalendarDays, Sparkles, ConciergeBell } from "lucide-react";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { MemberCard } from "@/components/membership/MemberCard";
+import { Pill } from "@/components/ui/Pill";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { useCurrentMember } from "@/lib/hooks/useCurrentMember";
+import { useMemberEvents } from "@/lib/hooks/useMemberEvents";
+import { membershipPerks } from "@/lib/data/membership";
+import { CHAPTERS } from "@/types";
+import { formatEventDate } from "@/lib/utils";
 
-const menuItems = [
-  { icon: User, label: "Profile", href: "/dashboard/profile" },
-  { icon: Settings, label: "Preferences", href: "/dashboard/preferences" },
-  { icon: Calendar, label: "Bookings", href: "/dashboard/bookings" },
-  { icon: Wallet, label: "Wallet", href: "/dashboard/wallet" },
-  { icon: MessageSquare, label: "Requests", href: "/dashboard/requests" },
-  { icon: Heart, label: "Favorites", href: "/dashboard/favorites" },
+const quickLinks = [
+  { label: "Member Pass", href: "/dashboard/card", icon: CreditCard },
+  { label: "Events", href: "/dashboard/events", icon: CalendarDays },
+  { label: "Perks", href: "/dashboard/perks", icon: Sparkles },
+  { label: "Concierge", href: "/dashboard/concierge", icon: ConciergeBell },
 ];
 
-export default function DashboardPage() {
+export default function DashboardOverview() {
+  const { member } = useCurrentMember();
+  const { events, rsvps } = useMemberEvents();
+  const firstName = member?.name?.split(" ")[0];
+  const upcoming = events.slice(0, 2);
+
   return (
-    <main className="min-h-screen bg-black text-white">
-      <Header />
+    <DashboardShell
+      eyebrow="Welcome Back"
+      title={firstName ? `Hi, ${firstName}` : "Your Dashboard"}
+      action={
+        <Link href="/dashboard/events" className="btn-outline">
+          Browse Events
+        </Link>
+      }
+    >
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Member card preview */}
+        <FadeIn onView={false} className="lg:col-span-1">
+          <Link href="/dashboard/card" className="block group">
+            <MemberCard
+              name={member?.name}
+              cardNumber={member?.cardNumber ?? undefined}
+              chapter={member?.chapter}
+            />
+            <p className="font-caps text-xs text-white/50 group-hover:text-pink transition-colors inline-flex items-center gap-1 mt-4">
+              View your pass <ArrowRight className="w-3 h-3" />
+            </p>
+          </Link>
+        </FadeIn>
 
-      <section className="pt-24 lg:pt-32 pb-24 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="font-caps text-muted">Welcome Back</span>
-            <h1 className="font-headline text-6xl lg:text-7xl mt-4">
-              Your Dashboard
-            </h1>
-          </motion.div>
-
-          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {menuItems.map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+        {/* Quick links */}
+        <FadeIn onView={false} delay={0.1} className="lg:col-span-2">
+          <div className="grid sm:grid-cols-2 gap-px bg-border h-full">
+            {quickLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group flex items-center gap-4 bg-black p-6 hover:bg-dark-gray transition-colors"
               >
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-4 p-6 border border-border hover:border-black transition-colors group"
-                >
-                  <div className="w-12 h-12 bg-dark-gray flex items-center justify-center group-hover:bg-black transition-colors">
-                    <item.icon className="w-6 h-6 group-hover:text-white transition-colors" />
-                  </div>
-                  <span className="font-headline text-xl">{item.label}</span>
-                </Link>
-              </motion.div>
+                <div className="w-11 h-11 flex items-center justify-center bg-pink/15 text-pink group-hover:bg-pink group-hover:text-black transition-colors shrink-0">
+                  <link.icon className="w-5 h-5" />
+                </div>
+                <span className="font-headline text-xl">{link.label}</span>
+                <ArrowRight className="w-4 h-4 ml-auto text-white/30 group-hover:text-pink transition-colors" />
+              </Link>
             ))}
           </div>
+        </FadeIn>
+      </div>
 
-          <div className="mt-16 p-8 bg-dark-gray">
-            <h2 className="font-headline text-2xl">Need Assistance?</h2>
-            <p className="font-body text-muted mt-4">
-              Your dedicated concierge is available 24/7 to help with any requests.
-            </p>
-            <Link href="/contact" className="btn-primary mt-6">
-              Contact Concierge
-            </Link>
-          </div>
+      {/* Upcoming events */}
+      <div className="mt-14">
+        <div className="flex items-end justify-between mb-6">
+          <h2 className="font-headline text-2xl">Upcoming Events</h2>
+          <Link
+            href="/dashboard/events"
+            className="font-caps text-xs text-white/50 hover:text-pink transition-colors inline-flex items-center gap-1"
+          >
+            View all <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
-      </section>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {upcoming.map((event) => {
+            const status = rsvps[event.id]?.status;
+            return (
+              <Link
+                key={event.id}
+                href="/dashboard/events"
+                className="group border border-border p-6 hover:border-pink transition-colors"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-caps text-[10px] text-pink">
+                    {formatEventDate(event.date)} &bull;{" "}
+                    {CHAPTERS[event.chapter].fullName}
+                  </span>
+                  {status === "confirmed" && <Pill variant="pink">Going</Pill>}
+                  {status === "waitlist" && (
+                    <Pill variant="muted">Waitlist</Pill>
+                  )}
+                </div>
+                <h3 className="font-headline text-xl">{event.title}</h3>
+                <p className="font-body text-sm text-white/50 mt-1">
+                  {event.location}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto text-center">
-          <Link href="/" className="font-headline text-2xl">WEST</Link>
-          <p className="font-caps text-subtle mt-4">&copy; 2025 West Ave Group.</p>
+      {/* Perks quick row */}
+      <div className="mt-14">
+        <div className="flex items-end justify-between mb-6">
+          <h2 className="font-headline text-2xl">Your Perks</h2>
+          <Link
+            href="/dashboard/perks"
+            className="font-caps text-xs text-white/50 hover:text-pink transition-colors inline-flex items-center gap-1"
+          >
+            View all <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
-      </footer>
-    </main>
+        <div className="flex flex-wrap gap-3">
+          {membershipPerks.map((perk) => (
+            <span
+              key={perk.id}
+              className="inline-flex items-center gap-2 border border-border px-4 py-2 font-caps text-[10px] text-white/70"
+            >
+              <perk.icon className="w-4 h-4 text-pink" />
+              {perk.title}
+            </span>
+          ))}
+        </div>
+      </div>
+    </DashboardShell>
   );
 }

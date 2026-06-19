@@ -20,6 +20,7 @@ export type Database = {
           card_number: string | null;
           instagram: string | null;
           avatar_url: string | null;
+          is_admin: boolean;
           joined_at: string | null;
           created_at: string;
         };
@@ -33,6 +34,7 @@ export type Database = {
           card_number?: string | null;
           instagram?: string | null;
           avatar_url?: string | null;
+          is_admin?: boolean;
           joined_at?: string | null;
           created_at?: string;
         };
@@ -46,9 +48,11 @@ export type Database = {
           card_number?: string | null;
           instagram?: string | null;
           avatar_url?: string | null;
+          is_admin?: boolean;
           joined_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       events: {
         Row: {
@@ -102,6 +106,7 @@ export type Database = {
           created_by?: string;
           created_at?: string;
         };
+        Relationships: [];
       };
       rsvps: {
         Row: {
@@ -134,6 +139,7 @@ export type Database = {
           checked_in_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       applications: {
         Row: {
@@ -145,6 +151,10 @@ export type Database = {
           instagram: string | null;
           referral: string | null;
           why: string;
+          industry: string | null;
+          title: string | null;
+          company: string | null;
+          contribution: string | null;
           status: "pending" | "approved" | "rejected";
           reviewed_by: string | null;
           created_at: string;
@@ -158,6 +168,10 @@ export type Database = {
           instagram?: string | null;
           referral?: string | null;
           why: string;
+          industry?: string | null;
+          title?: string | null;
+          company?: string | null;
+          contribution?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;
@@ -171,10 +185,15 @@ export type Database = {
           instagram?: string | null;
           referral?: string | null;
           why?: string;
+          industry?: string | null;
+          title?: string | null;
+          company?: string | null;
+          contribution?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       articles: {
         Row: {
@@ -213,6 +232,7 @@ export type Database = {
           published_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: {

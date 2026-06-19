@@ -77,7 +77,7 @@ export default function MagazinePage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-16 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-16 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -95,7 +95,7 @@ export default function MagazinePage() {
       </section>
 
       {/* Featured Article */}
-      <section className="px-6 lg:px-12 pb-20">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-20">
         <div className="max-w-[1600px] mx-auto">
           <Link href={`/magazine/${featuredArticle.id}`}>
             <motion.article
@@ -138,7 +138,7 @@ export default function MagazinePage() {
       </section>
 
       {/* Categories */}
-      <section className="px-6 lg:px-12 pb-12 border-t border-border pt-8">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-12 border-t border-border pt-8">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex gap-6 overflow-x-auto no-scrollbar">
             {categories.map((category, index) => (
@@ -156,7 +156,7 @@ export default function MagazinePage() {
       </section>
 
       {/* Articles Grid */}
-      <section className="px-6 lg:px-12 pb-24">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {articles.map((article, index) => (
@@ -199,7 +199,7 @@ export default function MagazinePage() {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-black text-white py-20 px-6 lg:px-12">
+      <section className="bg-black text-white py-20 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <span className="font-caps text-subtle">West Mag</span>
           <h2 className="font-headline text-4xl lg:text-5xl mt-4">
@@ -222,7 +222,7 @@ export default function MagazinePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

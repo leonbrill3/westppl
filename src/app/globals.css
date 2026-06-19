@@ -39,10 +39,14 @@
   --font-typewriter: var(--font-typewriter);
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Must live in @layer base — an unlayered reset would override every Tailwind
+   padding/margin utility (utilities are a cascade layer; unlayered CSS wins). */
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 html,

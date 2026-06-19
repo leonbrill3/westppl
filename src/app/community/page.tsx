@@ -73,7 +73,7 @@ export default function CommunityPage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-20 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-20 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -99,7 +99,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Cities */}
-      <section className="py-24 px-6 lg:px-12 border-t border-border">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24 border-t border-border">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Our Cities</span>
@@ -141,7 +141,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-24 px-6 lg:px-12 bg-dark-gray">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24 bg-dark-gray">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">Member Benefits</span>
@@ -168,7 +168,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-16">
             <span className="font-caps text-muted">What's Next</span>
@@ -221,7 +221,7 @@ export default function CommunityPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 lg:px-12 border-t border-border">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24 border-t border-border">
         <div className="max-w-[1600px] mx-auto text-center">
           <h2 className="font-headline text-4xl lg:text-5xl">
             Ready to Join?
@@ -237,7 +237,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST PPL

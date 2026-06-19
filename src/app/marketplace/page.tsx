@@ -8,70 +8,40 @@ import { ArrowRight } from "lucide-react";
 
 const categories = [
   {
-    id: "travel",
-    name: "Travel",
-    description: "Private jets, yacht charters, villa rentals, and bespoke itineraries.",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800",
-    items: 42,
-  },
-  {
     id: "dining",
     name: "Dining",
-    description: "Chef's tables, private dining rooms, and culinary experiences.",
+    description: "Member tables, neighborhood favorites, and chef collaborations.",
     image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
-    items: 28,
-  },
-  {
-    id: "fashion",
-    name: "Fashion",
-    description: "Personal styling, atelier access, and exclusive collections.",
-    image: "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800",
-    items: 35,
   },
   {
     id: "wellness",
     name: "Wellness",
-    description: "Spa retreats, private training, and holistic programs.",
+    description: "Studios, recovery, and trainers our members swear by.",
     image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800",
-    items: 24,
   },
   {
-    id: "home",
-    name: "Home",
-    description: "Interior design, art advisory, and home services.",
+    id: "creative",
+    name: "Creative Services",
+    description: "Photographers, designers, and makers from within the community.",
+    image: "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800",
+  },
+  {
+    id: "rentals",
+    name: "Stays & Rentals",
+    description: "Member homes, getaways, and spaces to gather.",
     image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
-    items: 31,
-  },
-];
-
-const featuredServices = [
-  {
-    id: "private-jet-membership",
-    name: "Private Jet Membership",
-    category: "Travel",
-    price: "From $12,500/mo",
-    image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800",
   },
   {
-    id: "personal-chef-service",
-    name: "Personal Chef Service",
-    category: "Dining",
-    price: "From $2,500/event",
-    image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800",
+    id: "perks",
+    name: "Brand Perks",
+    description: "Member pricing and access with brands that match the vibe.",
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800",
   },
   {
-    id: "bespoke-tailoring",
-    name: "Bespoke Tailoring",
-    category: "Fashion",
-    price: "From $5,000",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
-  },
-  {
-    id: "wellness-retreat",
-    name: "Private Wellness Retreat",
-    category: "Wellness",
-    price: "From $8,500/week",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
+    id: "local",
+    name: "Local Recs",
+    description: "The spots, services, and people members actually trust.",
+    image: "https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=800",
   },
 ];
 
@@ -81,29 +51,32 @@ export default function MarketplacePage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-24 lg:pt-32 pb-16 px-6 lg:px-12">
+      <section className="pt-24 lg:pt-32 pb-16 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="font-caps text-muted">Concierge Marketplace</span>
-            <h1 className="font-headline text-6xl lg:text-8xl mt-4">
-              Access the
+            <span className="inline-flex items-center gap-2 font-caps text-[10px] text-pink bg-pink/15 px-3 py-1 mb-4">
+              Launching Soon
+            </span>
+            <h1 className="font-headline text-6xl lg:text-8xl mt-2">
+              The Member
               <br />
-              Extraordinary
+              Marketplace
             </h1>
             <p className="font-body text-xl text-muted mt-6 max-w-2xl">
-              Our curated marketplace connects you with world-class services and experiences,
-              vetted by our team and available exclusively to West members.
+              A trusted, member-powered marketplace — local recommendations,
+              member offers, creative services, stays, and brand perks, all from
+              within the West Ppl community. Rolling out soon.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="px-6 lg:px-12 pb-24">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => (
@@ -123,7 +96,7 @@ export default function MarketplacePage() {
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                      <span className="font-caps text-white/70">{category.items} Services</span>
+                      <span className="font-caps text-[10px] text-pink">Coming Soon</span>
                       <h3 className="font-headline text-3xl text-white mt-2">
                         {category.name}
                       </h3>
@@ -139,56 +112,30 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* Featured Services */}
-      <section className="bg-dark-gray py-24 px-6 lg:px-12">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <span className="font-caps text-muted">Featured</span>
-              <h2 className="font-headline text-4xl lg:text-5xl mt-4">
-                Popular Services
-              </h2>
-            </div>
-            <Link
-              href="/marketplace"
-              className="hidden lg:flex items-center gap-2 font-caps hover:text-muted transition-colors"
-            >
-              View All
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredServices.map((service, index) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link href={`/marketplace/${service.id}`} className="group block">
-                  <div className="aspect-square relative overflow-hidden mb-4">
-                    <Image
-                      src={service.image}
-                      alt={service.name}
-                      fill
-                      className="object-cover grayscale-hover"
-                    />
-                  </div>
-                  <span className="font-caps text-muted">{service.category}</span>
-                  <h3 className="font-headline text-xl mt-1 group-hover:text-muted transition-colors">
-                    {service.name}
-                  </h3>
-                  <p className="font-body text-muted mt-1">{service.price}</p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+      {/* Member-powered note */}
+      <section className="bg-dark-gray py-24 px-6 md:px-10 lg:px-16 xl:px-24 border-t border-border">
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="font-caps text-sm text-pink">Built by Members</span>
+          <h2 className="font-headline text-4xl lg:text-5xl mt-4">
+            A Marketplace You Can Trust
+          </h2>
+          <p className="font-body text-lg text-white/60 mt-6">
+            No noise, no spam — just trusted services, offers, and recommendations
+            from people in the community. Want to list something when it opens?
+            Your concierge can help.
+          </p>
+          <Link
+            href="/dashboard/concierge"
+            className="btn-outline mt-8 inline-flex items-center gap-2"
+          >
+            Ask the Concierge
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
       {/* Concierge CTA */}
-      <section className="py-24 px-6 lg:px-12">
+      <section className="py-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -220,7 +167,7 @@ export default function MarketplacePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

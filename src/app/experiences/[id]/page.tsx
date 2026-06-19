@@ -75,7 +75,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
       <Header />
 
       {/* Back Link */}
-      <div className="pt-24 px-6 lg:px-12">
+      <div className="pt-24 px-6 md:px-10 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
           <Link
             href="/experiences"
@@ -88,7 +88,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Hero */}
-      <section className="px-6 lg:px-12 py-12">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 py-12">
         <div className="max-w-[1600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
       </section>
 
       {/* Details */}
-      <section className="px-6 lg:px-12 pb-16">
+      <section className="px-6 md:px-10 lg:px-16 xl:px-24 pb-16">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
@@ -208,7 +208,7 @@ export default function ExperiencePage({ params }: { params: Promise<{ id: strin
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 px-6 lg:px-12 mt-12">
+      <footer className="bg-black text-white py-12 px-6 md:px-10 lg:px-16 xl:px-24 mt-12">
         <div className="max-w-[1600px] mx-auto text-center">
           <Link href="/" className="font-headline text-2xl">
             WEST

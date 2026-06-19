@@ -38,6 +38,9 @@ CREATE TABLE applications (
   instagram TEXT,
   referral TEXT,
   why TEXT NOT NULL,
+  industry TEXT,
+  title TEXT,
+  company TEXT,
   status application_status DEFAULT 'pending' NOT NULL,
   reviewed_by UUID REFERENCES members(id),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
@@ -101,6 +104,23 @@ CREATE INDEX idx_applications_status ON applications(status);
 CREATE INDEX idx_articles_category ON articles(category);
 CREATE INDEX idx_articles_published_at ON articles(published_at);
 
+-- Helper functions for RLS.
+-- SECURITY DEFINER so they bypass RLS when reading `members`; without this,
+-- a policy on `members` that selects from `members` recurses infinitely (42P17).
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE sql SECURITY DEFINER SET search_path = public STABLE
+AS $$
+  SELECT EXISTS (SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true);
+$$;
+
+CREATE OR REPLACE FUNCTION public.is_active_member()
+RETURNS BOOLEAN
+LANGUAGE sql SECURITY DEFINER SET search_path = public STABLE
+AS $$
+  SELECT EXISTS (SELECT 1 FROM members WHERE id = auth.uid() AND status = 'active');
+$$;
+
 -- Row Level Security (RLS)
 ALTER TABLE members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
@@ -116,9 +136,7 @@ CREATE POLICY "Members can view their own profile"
 CREATE POLICY "Admins can view all members"
   ON members FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 CREATE POLICY "Members can update their own profile"
@@ -128,9 +146,7 @@ CREATE POLICY "Members can update their own profile"
 CREATE POLICY "Admins can update any member"
   ON members FOR UPDATE
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 -- Events policies
@@ -141,17 +157,13 @@ CREATE POLICY "Anyone can view public events"
 CREATE POLICY "Members can view all events"
   ON events FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND status = 'active'
-    )
+    public.is_active_member()
   );
 
 CREATE POLICY "Admins can manage events"
   ON events FOR ALL
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 -- RSVPs policies
@@ -162,18 +174,14 @@ CREATE POLICY "Members can view their own RSVPs"
 CREATE POLICY "Admins can view all RSVPs"
   ON rsvps FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 CREATE POLICY "Active members can create RSVPs"
   ON rsvps FOR INSERT
   WITH CHECK (
     member_id = auth.uid() AND
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND status = 'active'
-    )
+    public.is_active_member()
   );
 
 CREATE POLICY "Members can update their own RSVPs"
@@ -192,17 +200,13 @@ CREATE POLICY "Anyone can create applications"
 CREATE POLICY "Admins can view applications"
   ON applications FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 CREATE POLICY "Admins can update applications"
   ON applications FOR UPDATE
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 -- Articles policies
@@ -213,9 +217,7 @@ CREATE POLICY "Anyone can view published articles"
 CREATE POLICY "Admins can manage articles"
   ON articles FOR ALL
   USING (
-    EXISTS (
-      SELECT 1 FROM members WHERE id = auth.uid() AND is_admin = true
-    )
+    public.is_admin()
   );
 
 -- Function to generate unique card numbers
