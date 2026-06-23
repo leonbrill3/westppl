@@ -19,9 +19,22 @@ type ApplicationRow = {
   title: string | null;
   company: string | null;
   contribution: string | null;
+  social_platform: string | null;
+  social_handle: string | null;
+  address: string | null;
+  birthday: string | null;
   status: "pending" | "approved" | "rejected";
   created_at: string;
 };
+
+function socialUrl(platform: string | null, handle: string | null) {
+  if (!handle) return null;
+  const h = handle.replace(/^@/, "");
+  if (platform === "linkedin") {
+    return h.startsWith("http") ? h : `https://${h.replace(/^(www\.)?linkedin\.com\//, "linkedin.com/")}`;
+  }
+  return `https://instagram.com/${h}`;
+}
 
 const statusStyles: Record<string, string> = {
   pending: "bg-white/10 text-white/70",
@@ -44,7 +57,7 @@ export default function AdminApplicationsPage() {
       const { data, error } = await supabase
         .from("applications")
         .select(
-          "id, name, email, phone, chapter, instagram, referral, why, industry, title, company, contribution, status, created_at"
+          "id, name, email, phone, chapter, instagram, referral, why, industry, title, company, contribution, social_platform, social_handle, address, birthday, status, created_at"
         )
         .order("created_at", { ascending: false });
       if (error) setError("Could not load applications.");
@@ -232,15 +245,37 @@ export default function AdminApplicationsPage() {
                         >
                           <Phone className="w-4 h-4" /> {app.phone}
                         </a>
-                        {app.instagram && (
-                          <a
-                            href={`https://instagram.com/${app.instagram.replace("@", "")}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-white/80 hover:text-pink"
-                          >
-                            <ExternalLink className="w-4 h-4" /> {app.instagram}
-                          </a>
+                        {(() => {
+                          const url = socialUrl(app.social_platform, app.social_handle);
+                          if (!url) return null;
+                          const label =
+                            app.social_platform === "linkedin"
+                              ? "LinkedIn"
+                              : "Instagram";
+                          return (
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-white/80 hover:text-pink"
+                            >
+                              <ExternalLink className="w-4 h-4" /> {label}:{" "}
+                              {app.social_handle}
+                            </a>
+                          );
+                        })()}
+                        {app.address && (
+                          <p className="text-white/70 pt-1">{app.address}</p>
+                        )}
+                        {app.birthday && (
+                          <p className="text-muted">
+                            Born{" "}
+                            {new Date(app.birthday).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </p>
                         )}
                       </div>
                     </div>

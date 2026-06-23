@@ -41,6 +41,11 @@ CREATE TABLE applications (
   industry TEXT,
   title TEXT,
   company TEXT,
+  contribution TEXT,
+  social_platform TEXT,
+  social_handle TEXT,
+  address TEXT,
+  birthday DATE,
   status application_status DEFAULT 'pending' NOT NULL,
   reviewed_by UUID REFERENCES members(id),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL

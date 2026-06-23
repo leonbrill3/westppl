@@ -17,7 +17,10 @@ const initialForm = {
   email: "",
   phone: "",
   chapter: "",
-  instagram: "",
+  socialPlatform: "instagram",
+  socialHandle: "",
+  address: "",
+  birthday: "",
   industry: "",
   title: "",
   company: "",
@@ -54,7 +57,16 @@ export default function ApplyPage() {
       email: form.email.trim(),
       phone: form.phone.trim(),
       chapter: form.chapter as "miami" | "la" | "nyc",
-      instagram: form.instagram.trim().replace(/^@/, "") || null,
+      social_platform: form.socialPlatform,
+      social_handle: form.socialHandle.trim().replace(/^@/, ""),
+      // Keep `instagram` populated when that's the chosen platform (used by the
+      // members profile); otherwise leave it null.
+      instagram:
+        form.socialPlatform === "instagram"
+          ? form.socialHandle.trim().replace(/^@/, "") || null
+          : null,
+      address: form.address.trim(),
+      birthday: form.birthday || null,
       why: form.why.trim(),
       industry: form.industry || null,
       title: form.title.trim() || null,
@@ -240,14 +252,57 @@ export default function ApplyPage() {
                       </div>
                       <div>
                         <label className="font-caps text-sm text-muted block mb-2">
-                          Instagram
+                          Social Profile *
+                        </label>
+                        <div className="flex">
+                          <select
+                            value={form.socialPlatform}
+                            onChange={update("socialPlatform")}
+                            className="px-3 py-3 bg-black text-white border border-border border-r-0 font-body focus:outline-none focus:border-white transition-colors"
+                          >
+                            <option value="instagram">Instagram</option>
+                            <option value="linkedin">LinkedIn</option>
+                          </select>
+                          <input
+                            type="text"
+                            required
+                            value={form.socialHandle}
+                            onChange={update("socialHandle")}
+                            placeholder={
+                              form.socialPlatform === "linkedin"
+                                ? "linkedin.com/in/you"
+                                : "@username"
+                            }
+                            className="flex-1 min-w-0 px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-6 mt-6">
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Address *
                         </label>
                         <input
                           type="text"
-                          value={form.instagram}
-                          onChange={update("instagram")}
-                          placeholder="@username"
+                          required
+                          value={form.address}
+                          onChange={update("address")}
+                          placeholder="Street, City, State, ZIP"
                           className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Birthday *
+                        </label>
+                        <input
+                          type="date"
+                          required
+                          value={form.birthday}
+                          onChange={update("birthday")}
+                          className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors [color-scheme:dark]"
                         />
                       </div>
                     </div>

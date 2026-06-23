@@ -155,6 +155,10 @@ export type Database = {
           title: string | null;
           company: string | null;
           contribution: string | null;
+          social_platform: string | null;
+          social_handle: string | null;
+          address: string | null;
+          birthday: string | null;
           status: "pending" | "approved" | "rejected";
           reviewed_by: string | null;
           created_at: string;
@@ -172,6 +176,10 @@ export type Database = {
           title?: string | null;
           company?: string | null;
           contribution?: string | null;
+          social_platform?: string | null;
+          social_handle?: string | null;
+          address?: string | null;
+          birthday?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;
@@ -189,6 +197,10 @@ export type Database = {
           title?: string | null;
           company?: string | null;
           contribution?: string | null;
+          social_platform?: string | null;
+          social_handle?: string | null;
+          address?: string | null;
+          birthday?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;
