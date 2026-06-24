@@ -92,10 +92,10 @@ export default function AboutPage() {
               className="aspect-square relative"
             >
               <Image
-                src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800"
-                alt="West Ave Group"
+                src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800"
+                alt="West Ppl city community"
                 fill
-                className="object-cover"
+                className="object-cover grayscale"
               />
             </motion.div>
           </div>
