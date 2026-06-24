@@ -59,10 +59,10 @@ export function Header() {
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 xl:px-24">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="flex items-center justify-between h-24 lg:h-28">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <WestPplLogoSmall className="h-10 lg:h-12 w-auto text-white" />
+              <WestPplLogoSmall className="h-20 lg:h-24 w-auto text-white" />
             </Link>
 
             {/* Desktop Navigation */}
