@@ -26,6 +26,10 @@ const initialForm = {
   company: "",
   why: "",
   contribution: "",
+  reference1Name: "",
+  reference1Email: "",
+  reference2Name: "",
+  reference2Email: "",
 };
 
 type FormState = typeof initialForm;
@@ -72,6 +76,10 @@ export default function ApplyPage() {
       title: form.title.trim() || null,
       company: form.company.trim() || null,
       contribution: form.contribution.trim() || null,
+      reference1_name: form.reference1Name.trim(),
+      reference1_email: form.reference1Email.trim(),
+      reference2_name: form.reference2Name.trim() || null,
+      reference2_email: form.reference2Email.trim() || null,
     });
 
     setSubmitting(false);
@@ -390,6 +398,68 @@ export default function ApplyPage() {
                         className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors resize-none"
                         placeholder="Hosting, connecting people, sharing a craft, just showing up — anything you'd bring."
                       />
+                    </div>
+                  </div>
+
+                  {/* References */}
+                  <div>
+                    <h3 className="font-headline text-xl mb-2">References</h3>
+                    <p className="font-body text-sm text-muted mb-6">
+                      Share two people who can vouch for you. A current member is
+                      ideal, but any trusted reference works. At least one is
+                      required.
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Reference 1 Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={form.reference1Name}
+                          onChange={update("reference1Name")}
+                          className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Reference 1 Email *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={form.reference1Email}
+                          onChange={update("reference1Email")}
+                          className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-6 mt-6">
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Reference 2 Name
+                        </label>
+                        <input
+                          type="text"
+                          value={form.reference2Name}
+                          onChange={update("reference2Name")}
+                          className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label className="font-caps text-sm text-muted block mb-2">
+                          Reference 2 Email
+                        </label>
+                        <input
+                          type="email"
+                          value={form.reference2Email}
+                          onChange={update("reference2Email")}
+                          className="w-full px-4 py-3 bg-black text-white border border-border font-body focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
                     </div>
                   </div>
 

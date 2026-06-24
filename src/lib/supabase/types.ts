@@ -159,6 +159,10 @@ export type Database = {
           social_handle: string | null;
           address: string | null;
           birthday: string | null;
+          reference1_name: string | null;
+          reference1_email: string | null;
+          reference2_name: string | null;
+          reference2_email: string | null;
           status: "pending" | "approved" | "rejected";
           reviewed_by: string | null;
           created_at: string;
@@ -180,6 +184,10 @@ export type Database = {
           social_handle?: string | null;
           address?: string | null;
           birthday?: string | null;
+          reference1_name?: string | null;
+          reference1_email?: string | null;
+          reference2_name?: string | null;
+          reference2_email?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;
@@ -201,6 +209,10 @@ export type Database = {
           social_handle?: string | null;
           address?: string | null;
           birthday?: string | null;
+          reference1_name?: string | null;
+          reference1_email?: string | null;
+          reference2_name?: string | null;
+          reference2_email?: string | null;
           status?: "pending" | "approved" | "rejected";
           reviewed_by?: string | null;
           created_at?: string;

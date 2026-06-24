@@ -46,6 +46,10 @@ CREATE TABLE applications (
   social_handle TEXT,
   address TEXT,
   birthday DATE,
+  reference1_name TEXT,
+  reference1_email TEXT,
+  reference2_name TEXT,
+  reference2_email TEXT,
   status application_status DEFAULT 'pending' NOT NULL,
   reviewed_by UUID REFERENCES members(id),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL

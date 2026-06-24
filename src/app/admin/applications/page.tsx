@@ -23,6 +23,10 @@ type ApplicationRow = {
   social_handle: string | null;
   address: string | null;
   birthday: string | null;
+  reference1_name: string | null;
+  reference1_email: string | null;
+  reference2_name: string | null;
+  reference2_email: string | null;
   status: "pending" | "approved" | "rejected";
   created_at: string;
 };
@@ -57,7 +61,7 @@ export default function AdminApplicationsPage() {
       const { data, error } = await supabase
         .from("applications")
         .select(
-          "id, name, email, phone, chapter, instagram, referral, why, industry, title, company, contribution, social_platform, social_handle, address, birthday, status, created_at"
+          "id, name, email, phone, chapter, instagram, referral, why, industry, title, company, contribution, social_platform, social_handle, address, birthday, reference1_name, reference1_email, reference2_name, reference2_email, status, created_at"
         )
         .order("created_at", { ascending: false });
       if (error) setError("Could not load applications.");
@@ -311,6 +315,37 @@ export default function AdminApplicationsPage() {
                       <p className="text-sm text-white/70 whitespace-pre-line">
                         {app.contribution}
                       </p>
+                    </div>
+                  )}
+
+                  {(app.reference1_name || app.reference2_name) && (
+                    <div className="mt-6">
+                      <h4 className="font-caps text-xs text-muted mb-2">
+                        References
+                      </h4>
+                      <div className="space-y-1 text-sm text-white/70">
+                        {[
+                          { name: app.reference1_name, email: app.reference1_email },
+                          { name: app.reference2_name, email: app.reference2_email },
+                        ]
+                          .filter((r) => r.name || r.email)
+                          .map((r, i) => (
+                            <p key={i}>
+                              {r.name || "—"}
+                              {r.email && (
+                                <>
+                                  {" · "}
+                                  <a
+                                    href={`mailto:${r.email}`}
+                                    className="hover:text-pink"
+                                  >
+                                    {r.email}
+                                  </a>
+                                </>
+                              )}
+                            </p>
+                          ))}
+                      </div>
                     </div>
                   )}
 
